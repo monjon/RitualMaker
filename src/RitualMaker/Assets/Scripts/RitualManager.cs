@@ -5,19 +5,34 @@ using System.Collections.Generic;
 public class RitualManager : MonoBehaviour
 {
 
+
+	// Singleton
+	//
+
+	static private RitualManager instance;
+	static public RitualManager Instance{
+		get {return RitualManager.instance;}
+	}
+
+	public void Awake(){
+		// Singleton logic
+		if(RitualManager.instance == null){
+			RitualManager.instance = this;
+			GameObject.DontDestroyOnLoad(this.gameObject);
+		}
+
+	}
+
+	// Properties
+	//
+
+
     public GameObject RitualPrefab;
 
-    void Start()
-    {
+	// Methods
+	//
 
-    }
-
-    void Update()
-    {
-
-    }
-
-    void CreateRitual(Vector2 position, float range, string powerName)
+    public void CreateRitual(Vector2 position, float range, string powerName)
     {
         GameObject newRitual = (GameObject)GameObject.Instantiate(RitualPrefab, Vector3.zero, Quaternion.identity);
 
@@ -32,6 +47,10 @@ public class RitualManager : MonoBehaviour
             if (touched.CompareTag("Villager"))
             {
                 //Add the ritual to the villager
+
+				Ritual r = touched.AddComponent<Ritual>();
+				// Init the Ritual data to the Villager
+
             }
             words.AddRange(touched.GetComponent<KeyWords>().KeyWordsList);
         }

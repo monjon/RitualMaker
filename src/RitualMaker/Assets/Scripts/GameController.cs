@@ -9,6 +9,10 @@ public class GameController : MonoBehaviour {
 	public GameObject FireParticle;
 	public GameObject LightningParticle;
 
+	[Header ("Power Range")]
+	public float FireRange = 1f;
+	public float LightningRange = 1f;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -23,12 +27,16 @@ public class GameController : MonoBehaviour {
 				Vector3 mousePos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 				mousePos.z = 0;
 				Debug.Log("Display Power");
+
+				float range = 1f;
+
 				switch (TypeOfPower) {
 				case "Fire":
 					Debug.Log ("Fire power displayed");
 					// Instantiate the prefab effect during runtime at the mouse position
 					GameObject go = (GameObject) GameObject.Instantiate (FireParticle, mousePos, Quaternion.identity);
 					Destroy (go, 2);
+					range = this.FireRange;
 					break;
 				case "Lightning":
 					Debug.Log ("Lightning power displayed");
@@ -36,11 +44,18 @@ public class GameController : MonoBehaviour {
 					mousePos.y += 7.3f;
 					GameObject goLightning = (GameObject) GameObject.Instantiate (LightningParticle, mousePos, Quaternion.identity);
 					Destroy (goLightning, 2);
+					range = this.LightningRange;
 					break;
 				default:
 					break;
 				}
 				PowerIsActivated = false;
+
+				// Call the ritual manager
+				if(RitualManager.Instance != null){
+					RitualManager.Instance.CreateRitual(new Vector2(mousePos.x, mousePos.y), range, this.TypeOfPower);
+				}
+
 			}
 		}
 
