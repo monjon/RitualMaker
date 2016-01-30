@@ -31,7 +31,8 @@ public class CameraScrolling : MonoBehaviour
     {
         Vector3 mousePosition = Input.mousePosition;
 
-        if (Input.GetMouseButton(1))
+        if (Input.GetMouseButton(1) ||
+            Input.GetMouseButton(2))
         {
             fixedPosition = mousePosition - oldPosition;
         }
