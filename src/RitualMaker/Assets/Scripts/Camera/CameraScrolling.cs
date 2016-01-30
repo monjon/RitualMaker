@@ -46,5 +46,5 @@ public class CameraScrolling : MonoBehaviour
             camera.transform.position += fixedPosition * Speed * Time.fixedDeltaTime;
         else
             camera.transform.position -= fixedPosition * Speed * Time.fixedDeltaTime;
-    }
+    }   
 }

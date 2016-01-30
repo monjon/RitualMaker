@@ -20,7 +20,9 @@ public class VillagesManager : MonoBehaviour
     {
 	
 	}
-	
+
+    bool goBack = false;
+
 	void Update ()
     {
         float dt = Time.deltaTime * editor;
@@ -33,8 +35,14 @@ public class VillagesManager : MonoBehaviour
         }
 
         if (actualTime >= TimeEndCycle &&
-            actualTime <= TimeEndCycle + EndCycle)
+            actualTime <= TimeEndCycle + EndCycle &&
+            goBack == false)
         {
+            goBack = true;
+            foreach (GameObject village in Villages)
+            {
+                village.GetComponent<Village>().GetBackHomeMOFOS();
+            }
             // Time to gather to village;
         }
         if (actualTime > TimeEndCycle + EndCycle)
@@ -46,8 +54,9 @@ public class VillagesManager : MonoBehaviour
             foreach (GameObject village in Villages)
             {
                 village.GetComponent<Village>().UpdateStocks();
+                village.GetComponent<Village>().WakeUpMOFOS();
             }
-
+            goBack = false;
             // Time to go back to work;
         }
 
