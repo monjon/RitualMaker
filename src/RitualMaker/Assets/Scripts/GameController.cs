@@ -31,9 +31,6 @@ public class GameController : MonoBehaviour {
 		get { return this.timerPowerUsed < 0f;}
 	}
 
-	// Methods
-	//
-
 	private bool PowerIsActivated = false;
 	public bool IsPowerActive {
 		get {return this.PowerIsActivated;}
@@ -46,10 +43,12 @@ public class GameController : MonoBehaviour {
 	public GameObject FireParticle;
 	public GameObject LightningParticle;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
+	[Header("Power Range")]
+	public float FireRange = 1f;
+	public float LightningRange = 1f;
+
+	// Methods
+	//
 	
 	// Update is called once per frame
 	void Update () {
@@ -64,6 +63,9 @@ public class GameController : MonoBehaviour {
 			if (PowerIsActivated) {
 				// Get mouse clicked position in order to display the fx at that point
 				Vector3 mousePos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+
+				float range = 1f;
+
 				mousePos.z = 0;
 				Debug.Log("Display Power");
 				switch (TypeOfPower) {
@@ -72,6 +74,7 @@ public class GameController : MonoBehaviour {
 					// Instantiate the prefab effect during runtime at the mouse position
 					GameObject go = (GameObject) GameObject.Instantiate (FireParticle, mousePos, Quaternion.identity);
 					Destroy (go, 2);
+					range = this.FireRange;
 					break;
 				case "Lightning":
 					Debug.Log ("Lightning power displayed");
@@ -79,12 +82,20 @@ public class GameController : MonoBehaviour {
 					mousePos.y += 7.3f;
 					GameObject goLightning = (GameObject) GameObject.Instantiate (LightningParticle, mousePos, Quaternion.identity);
 					Destroy (goLightning, 2);
+					range = this.LightningRange;
 					break;
 				default:
 					break;
 				}
 				PowerIsActivated = false;
 				this.timerPowerUsed = 0.1f;
+
+				// Call the ritual manager to let him know a power was used
+				if(RitualManager.Instance != null){
+					Debug.Log("GameController.Update - Power activated - range : "+range+", mousePos : "+mousePos+", typePower : "+this.TypeOfPower);
+					RitualManager.Instance.CreateRitual(new Vector2(mousePos.x, mousePos.y) , range, this.TypeOfPower);
+				}
+
 			}
 		}
 
