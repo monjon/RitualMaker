@@ -21,7 +21,7 @@ public class villageois : MonoBehaviour {
     private int i = 0;
     private float variantX = 0.5f;
     private float variantY = 0.5f;
-    public float faith = 0.3f;
+    public float faith = 0.0f;
 
     private enum playerState
     {
