@@ -5,6 +5,9 @@ public class Fire : MonoBehaviour {
 
 	public GameController gc;
 
+	private float duration = 1.0f;
+	private float alpha = 0f;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -15,9 +18,6 @@ public class Fire : MonoBehaviour {
 		gc.ActivatePower ("Fire");
 	}
 
-	var duration : float = 1.0;
-	var alpha : float = 0;
-
 	void Update(){
 
 		lerpAlpha();
@@ -25,9 +25,9 @@ public class Fire : MonoBehaviour {
 
 	void lerpAlpha () {
 
-		var lerp : float = Mathf.PingPong (Time.time, duration) / duration;
+		float lerp = Mathf.PingPong (Time.time, duration) / duration;
 
-		alpha = Mathf.Lerp(0.0, 1.0, lerp) ;
-		renderer.material.color.a = alpha;
+		alpha = Mathf.Lerp(0.0f, 1.0f, lerp) ;
+		GetComponent<Renderer>().material.color.a = alpha;
 	}
 }
