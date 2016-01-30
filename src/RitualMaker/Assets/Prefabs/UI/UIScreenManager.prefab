@@ -40,7 +40,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 120296}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -72.29819, y: -73.214676, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 482486}
@@ -88,9 +88,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ScreensPrefab:
-  - {fileID: 11437250, guid: 6db4e61e280cb5746b3003fe28f4d32d, type: 2}
+  - {fileID: 11433878, guid: 796907fbbc2b34146a609f63c166cfdf, type: 2}
+  - {fileID: 11431468, guid: 4e4a7fc905895584ca83a05064e4777f, type: 2}
   PopupsPrefab:
-  - {fileID: 11443734, guid: 5e23059ed816ea848ad27feb1c599c12, type: 2}
+  - {fileID: 11497976, guid: 1d36b11b3bf98864fad61a72522ab506, type: 2}
+  - {fileID: 11414140, guid: 471ad80f1dda58644bb708acb4d387dc, type: 2}
+  - {fileID: 11452984, guid: 958947a07a84274429be46fc73a87991, type: 2}
   DialogsPrefab:
   - {fileID: 11412652, guid: 6adb652c8bc731d4984e20ccd431a9d9, type: 2}
   PopupCachePrefab: {fileID: 22454434, guid: d0719ee50c95a0944902720dd2adf81a, type: 2}
@@ -99,7 +102,10 @@ MonoBehaviour:
     type: 2}
   Screens:
   - {fileID: 0}
+  - {fileID: 0}
   Popups:
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
   Dialogs:
   - {fileID: 0}
