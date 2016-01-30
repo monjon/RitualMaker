@@ -2,6 +2,15 @@
 using System.Collections;
 using System.Collections.Generic;
 
+[System.Serializable]
+public class Spots
+{
+    public string Name;
+    public List<GameObject> waypoints;
+    public string Job;
+    public bool spotTaken;
+}
+
 public class Village : MonoBehaviour 
 {
 
@@ -10,6 +19,9 @@ public class Village : MonoBehaviour
     public int intel = 50;
 
     public int chancesGettingSick = 5; // percents
+
+    [SerializeField]
+    public List<Spots> Spots = new List<Spots>();
 
     [HideInInspector]
     public List<GameObject> dwellers;
@@ -23,6 +35,22 @@ public class Village : MonoBehaviour
     {
 	
 	}
+
+    public void WakeUpMOFOS()
+    {
+        foreach (GameObject dweller in dwellers)
+        {
+            dweller.GetComponent<villageois>().WakeUp();
+        }
+    }
+
+    public void GetBackHomeMOFOS()
+    {
+        foreach (GameObject dweller in dwellers)
+        {
+            dweller.GetComponent<villageois>().EndOfJobCycle();
+        }
+    }
 
     public void UpdateStocks()
     {
