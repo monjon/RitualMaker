@@ -12,7 +12,7 @@ GameObject:
   - 223: {fileID: 22370286}
   - 114: {fileID: 11416532}
   m_Layer: 0
-  m_Name: CheatBox
+  m_Name: UIDialog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
