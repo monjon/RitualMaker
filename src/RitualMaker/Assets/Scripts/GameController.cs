@@ -42,6 +42,7 @@ public class GameController : MonoBehaviour {
 
 	public GameObject FireParticle;
 	public GameObject LightningParticle;
+	public GameObject BoostParticle;
 
 	[Header("Power Range")]
 	public float FireRange = 1f;
@@ -83,6 +84,10 @@ public class GameController : MonoBehaviour {
 					GameObject goLightning = (GameObject) GameObject.Instantiate (LightningParticle, mousePos, Quaternion.identity);
 					Destroy (goLightning, 2);
 					range = this.LightningRange;
+					break;
+				case "Boost":
+					GameObject goBoost = (GameObject) GameObject.Instantiate (BoostParticle, mousePos, Quaternion.identity);
+					Destroy (goBoost, 2);
 					break;
 				default:
 					break;
