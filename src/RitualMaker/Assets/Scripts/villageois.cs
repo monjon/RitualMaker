@@ -19,12 +19,16 @@ public class villageois : MonoBehaviour {
     public string age;
     private float timer = 0;
     private int i = 0;
+    private float variantX = 0.5f;
+    private float variantY = 0.5f;
 
     private enum playerState
     {
         isWorking,
         isGoingToWork,
         isGoingBackHome,
+        isResting,
+        isSleeping,
     }
 
     private playerState pState;
@@ -56,18 +60,18 @@ public class villageois : MonoBehaviour {
 
     public void WakeUp()
     {
-
+        pState = playerState.isGoingToWork;
     }
 
     public void EndOfJobCycle()
     {
-
+        pState = playerState.isResting;
     }
 
-    void moove()
+    void moove(float coeff)
     {
         if (transform.position != destination)
-            transform.position = Vector3.MoveTowards(transform.position, destination, Time.fixedDeltaTime * speed);
+            transform.position = Vector3.MoveTowards(transform.position, destination, Time.fixedDeltaTime * speed * coeff);
     }
 	
 	// Update is called once per frame
@@ -98,8 +102,13 @@ public class villageois : MonoBehaviour {
 
             case playerState.isWorking:
                 timer = timer + Time.deltaTime;
+                destination = new Vector3(villageToWorkplace[villageToWorkplace.Count - 1].x + variantX, villageToWorkplace[villageToWorkplace.Count - 1].y + variantY, 0);
                 if (food < maxFood && timer >= collectTime)
                 {
+                    if (food % 2 == 0)
+                        variantX = variantX * -1;
+                    else if (food % 3 == 0)
+                        variantY = variantY * -1;
                     timer = 0f;
                     food++;
                     Debug.Log(food);
@@ -108,6 +117,29 @@ public class villageois : MonoBehaviour {
                 {
                     timer = 0f;
                     pState = playerState.isGoingBackHome;
+                    variantX = 0.5f;
+                    variantY = 0.5f;
+                }
+                break;
+
+            case playerState.isResting:
+                destination = villageToWorkplace[i];
+                if (transform.position == villageToWorkplace[0])
+                {
+                        Village.GetComponent<Village>().food += food;
+                        food = 0;
+                    pState = playerState.isSleeping;
+                }
+                else if (transform.position == villageToWorkplace[i])
+                    --i;
+                break;
+
+            case playerState.isSleeping:
+                if (transform.position == destination)
+                {
+                    variantX = Random.value - 0.5f;
+                    variantY = Random.value - 0.5f;
+                    destination = new Vector3(villageToWorkplace[0].x + variantX, villageToWorkplace[0].y + variantY, 0);
                 }
                 break;
 
@@ -122,11 +154,23 @@ public class villageois : MonoBehaviour {
         switch (pState)
         {
             case playerState.isGoingToWork:
-                moove();
+                moove(1);
                 break;
 
             case playerState.isGoingBackHome:
-                moove();
+                moove(1);
+                break;
+
+            case playerState.isResting:
+                moove(1);
+                break;
+
+            case playerState.isWorking:
+                moove(1);
+                break;
+
+            case playerState.isSleeping:
+                moove(1);
                 break;
 
             default:
