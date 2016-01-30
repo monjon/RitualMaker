@@ -11,6 +11,7 @@ GameObject:
   - 212: {fileID: 21263196}
   - 114: {fileID: 11465100}
   - 114: {fileID: 11485138}
+  - 61: {fileID: 6165042}
   m_Layer: 0
   m_Name: peasant
   m_TagString: peasant
@@ -30,6 +31,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!61 &6165042
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 153878}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 0.27, y: 0.26}
 --- !u!114 &11465100
 MonoBehaviour:
   m_ObjectHideFlags: 1

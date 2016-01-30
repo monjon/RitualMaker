@@ -6,79 +6,115 @@ public class RitualManager : MonoBehaviour
 {
 
 
-	// Singleton
-	//
+    // Singleton
+    //
 
-	static private RitualManager instance;
-	static public RitualManager Instance{
-		get {return RitualManager.instance;}
-	}
+    static private RitualManager instance;
+    static public RitualManager Instance
+    {
+        get { return RitualManager.instance; }
+    }
 
-	public void Awake(){
-		// Singleton logic
-		if(RitualManager.instance == null){
-			RitualManager.instance = this;
-			GameObject.DontDestroyOnLoad(this.gameObject);
-		}
+    public void Awake()
+    {
+        // Singleton logic
+        if (RitualManager.instance == null)
+        {
+            RitualManager.instance = this;
+            GameObject.DontDestroyOnLoad(this.gameObject);
+        }
 
-	}
+    }
 
-	// Properties
-	//
+    // Properties
+    //
 
 
     public GameObject RitualPrefab;
 
-	// Methods
-	//
+    // Methods
+    //
 
-    public void CreateRitual(Vector2 position, float range, string powerName)
+    public void CreateRitual(Vector2 position, float range, string powerName, int power)
     {
-		if(this.RitualPrefab != null){
-	        //GameObject newRitual = (GameObject)GameObject.Instantiate(RitualPrefab, Vector3.zero, Quaternion.identity);
+        if (this.RitualPrefab != null)
+        {
+            //GameObject newRitual = (GameObject)GameObject.Instantiate(RitualPrefab, Vector3.zero, Quaternion.identity);
 
-	        RaycastHit2D[] hits = Physics2D.CircleCastAll(position, range, Vector2.right);
+            RaycastHit2D[] hits = Physics2D.CircleCastAll(position, range, Vector2.right);
 
-	        List<string> words = new List<string>();
+            List<string> words = new List<string>();
 
-	        foreach (RaycastHit2D hit in hits)
-	        {
-	            GameObject touched = hit.collider.gameObject;
+            foreach (RaycastHit2D hit in hits)
+            {
+                GameObject touched = hit.collider.gameObject;
 
-	            if (touched.CompareTag("Villager"))
-	            {
-	                //Add the ritual to the villager
+                //if (touched.CompareTag("Villager"))
+                //{
+                //    //Add the ritual to the villager
 
-					Ritual r = touched.AddComponent<Ritual>();
-					// Init the Ritual data to the Villager
+                //    Ritual r = touched.AddComponent<Ritual>();
+                //    // Init the Ritual data to the Villager
 
-	            }
+                //}
 
-				// If the touched villager has a keywords component on him (he should !)
-				if(touched.GetComponent<KeyWords>() != null){
-	            	words.AddRange(touched.GetComponent<KeyWords>().KeyWordsList);
-				}
-	        }
+                //// If the touched villager has a keywords component on him (he should !)
+                //if(touched.GetComponent<KeyWords>() != null){
+                words.AddRange(touched.GetComponent<KeyWords>().KeyWordsList);
+                //}
+            }
 
-	        for (int i = 0; i < words.Count; i++)
-	        {
-	            string temp = words[i];
-	            int randomIndex = Random.Range(i, words.Count);
-	            words[i] = words[randomIndex];
-	            words[randomIndex] = temp;
-	        }
-			/*
-	        for (int i = 0; i < 3; ++i)
-	        {
-	            newRitual.GetComponent<Ritual>().keywords.Add(words[i]);
-	        }
-	        newRitual.GetComponent<Ritual>().godAction = powerName;
-	        newRitual.GetComponent<Ritual>().faith = 42;// Change to the action type;
-	        */
+            for (int i = 0; i < words.Count; i++)
+            {
+                string temp = words[i];
+                int randomIndex = Random.Range(i, words.Count);
+                words[i] = words[randomIndex];
+                words[randomIndex] = temp;
+            }
 
-		}
-		else{
-			Debug.Log("RitualManager.CreateRitual - No Ritual Prefab set");
-		}
+            List<string> selectedConditions = new List<string>();
+
+            for (int i = 0; i < 3; ++i)
+            {
+                //selectedConditions.Add(words[i]);
+            }
+
+            foreach (RaycastHit2D hit in hits)
+            {
+                GameObject touched = hit.collider.gameObject;
+
+                if (touched.CompareTag("Villager"))
+                {
+                    foreach (string condition in selectedConditions)
+                        if (touched.GetComponent<villageois>().Ritual.ContainsKey(condition))
+                        {
+                            touched.GetComponent<villageois>().Ritual[condition] += power;
+                            if (touched.GetComponent<villageois>().Ritual[condition] > 3)
+                                touched.GetComponent<villageois>().Ritual[condition] = 3;
+                            if (touched.GetComponent<villageois>().Ritual[condition] < -3)
+                                touched.GetComponent<villageois>().Ritual[condition] = -3;
+                        }
+                        else
+                        {
+                            touched.GetComponent<villageois>().Ritual[condition] = power;
+                        }
+                    if (power < 0)
+                        touched.GetComponent<villageois>().Fear();
+                }
+            }
+            /*
+            for (int i = 0; i < 3; ++i)
+            {
+                newRitual.GetComponent<Ritual>().keywords.Add(words[i]);
+            }
+            newRitual.GetComponent<Ritual>().godAction = powerName;
+            newRitual.GetComponent<Ritual>().faith = 42;// Change to the action type;
+            */
+
+        }
+        else
+        {
+            Debug.Log("RitualManager.CreateRitual - No Ritual Prefab set");
+        }
     }
 }
