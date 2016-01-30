@@ -23,6 +23,9 @@ public class villageois : MonoBehaviour {
     private float variantY = 0.5f;
     private float faith = 0.0f;
 
+    [HideInInspector]
+    public Dictionary<string, int> Ritual = new Dictionary<string,int>();
+
     private enum playerState
     {
         isWorking,
@@ -61,6 +64,11 @@ public class villageois : MonoBehaviour {
 
         Village.GetComponent<Village>().dwellers.Add(this.gameObject);
 	}
+
+    public void Fear()
+    {
+        Debug.Log("HUUUH");
+    }
 
     public void WakeUp()
     {
@@ -218,7 +226,6 @@ public class villageois : MonoBehaviour {
 
             default:
                 break;
-
         }
     }
 }

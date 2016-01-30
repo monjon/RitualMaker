@@ -53,16 +53,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 153878}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56e4522b67f4d3b43b8799d4ffc2d959, type: 3}
+  m_Script: {fileID: 11500000, guid: 7f3e23189c03f415690c410ad7a33ebc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
-  collectTime: 1
+  speed: 0
+  collectTime: 10
   Village: {fileID: 0}
   maxFood: 10
   food: 0
   sex: 
-  job: Farmer
+  job: 
   health: 
   age: 
 --- !u!114 &11485138
