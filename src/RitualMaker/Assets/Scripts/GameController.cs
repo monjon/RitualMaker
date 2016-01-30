@@ -26,7 +26,9 @@ public class GameController : MonoBehaviour {
 					Vector3 mousePos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 					mousePos.z = 0;
 					// Instantiate the prefab effect during runtime at the mouse position
-					Instantiate (FireParticle, mousePos, Quaternion.identity);
+					GameObject go = (GameObject) GameObject.Instantiate (FireParticle, mousePos, Quaternion.identity);
+					Destroy (go, 2);
+
 					break;
 				default:
 					break;
