@@ -5,15 +5,14 @@ using System.Collections.Generic;
 public class Village : MonoBehaviour 
 {
 
-    [HideInInspector]
     public int food = 50;
-    [HideInInspector]
     public int minerals = 50;
-    [HideInInspector]
     public int intel = 50;
 
-    //[HideInInspector]
-    //public List<Villager> villagers;
+    public int chancesGettingSick = 5; // percents
+
+    [HideInInspector]
+    public List<GameObject> dwellers;
 
 	void Start () 
     {
@@ -24,4 +23,24 @@ public class Village : MonoBehaviour
     {
 	
 	}
+
+    public void UpdateStocks()
+    {
+        food -= dwellers.Count;
+
+        if (food < 0)
+        {
+            food = 0;
+
+            foreach (GameObject dweller in dwellers)
+            {
+                int r = Random.Range(0, 100);
+
+                if (r < chancesGettingSick)
+                {
+                    // the dweller gets sick.
+                }
+            }
+        }
+    }
 }
