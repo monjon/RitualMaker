@@ -5,7 +5,6 @@ using System.Collections.Generic;
 public class KeyWords : MonoBehaviour 
 {
 
-    [HideInInspector]
     public List<string> KeyWordsList;
 
 	void Start () 
