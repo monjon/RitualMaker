@@ -20,6 +20,9 @@ public class villageois : MonoBehaviour {
     private float timer = 0;
     private int i = 0;
 
+    [HideInInspector]
+    public Dictionary<string, int> Ritual;
+
     private enum playerState
     {
         isWorking,
@@ -53,6 +56,11 @@ public class villageois : MonoBehaviour {
 
         Village.GetComponent<Village>().dwellers.Add(this.gameObject);
 	}
+
+    public void Fear()
+    {
+
+    }
 
     public void WakeUp()
     {
