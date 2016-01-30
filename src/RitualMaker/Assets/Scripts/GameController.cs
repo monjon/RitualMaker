@@ -22,11 +22,11 @@ public class GameController : MonoBehaviour {
 				switch (TypeOfPower) {
 				case "Fire":
 					Debug.Log ("Fire power displayed");
+					// Get mouse clicked position in order to display the fx at that point
 					Vector3 mousePos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 					mousePos.z = 0;
-					FireParticle.transform.position = mousePos;
-
-//					FireParticle.GetComponent<ParticleSystem> ().Play ();
+					// Instantiate the prefab effect during runtime at the mouse position
+					Instantiate (FireParticle, mousePos, Quaternion.identity);
 					break;
 				default:
 					break;
