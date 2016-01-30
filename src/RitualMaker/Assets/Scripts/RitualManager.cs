@@ -14,10 +14,18 @@ public class RitualManager : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
+            Vector2 pos = new Vector2(worldPos.x, worldPos.y);
+
+            CreateRitual(pos, 10, "Kikoo", 1);
+            Debug.Log("KABOOM");
+        }
     }
 
-    void CreateRitual(Vector2 position, float range, string powerName)
+    void CreateRitual(Vector2 position, float range, string powerName, int good)
     {
         GameObject newRitual = (GameObject)GameObject.Instantiate(RitualPrefab, Vector3.zero, Quaternion.identity);
 
@@ -29,10 +37,7 @@ public class RitualManager : MonoBehaviour
         {
             GameObject touched = hit.collider.gameObject;
 
-            if (touched.CompareTag("Villager"))
-            {
-                //Add the ritual to the villager
-            }
+
             words.AddRange(touched.GetComponent<KeyWords>().KeyWordsList);
         }
 
@@ -50,5 +55,32 @@ public class RitualManager : MonoBehaviour
         }
         newRitual.GetComponent<Ritual>().godAction = powerName;
         newRitual.GetComponent<Ritual>().faith = 42;// Change to the action type;
+
+        foreach (RaycastHit2D hit in hits)
+        {
+            GameObject touched = hit.collider.gameObject;
+            if (touched.CompareTag("peasant"))
+            {
+                foreach (string condition in newRitual.GetComponent<Ritual>().keywords)
+                {
+                    if (touched.GetComponent<villageois>().Ritual.ContainsKey(condition))
+                    {
+                        touched.GetComponent<villageois>().Ritual[condition] += good;
+                        if (touched.GetComponent<villageois>().Ritual[condition] > 3)
+                            touched.GetComponent<villageois>().Ritual[condition] = 3;
+                        if (touched.GetComponent<villageois>().Ritual[condition] < -3)
+                            touched.GetComponent<villageois>().Ritual[condition] = -3;
+                    }
+                    else
+                    {
+                        touched.GetComponent<villageois>().Ritual[condition] = good;
+                    }
+                }
+            }
+
+            // Si l'action n'est pas cool, le peasant flip et se casse.
+            if (good < 0)
+                touched.GetComponent<villageois>().Fear();
+        }
     }
 }

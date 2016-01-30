@@ -445,10 +445,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 11465100, guid: 2a31f4e3f5a25ef4892344ae5a7af533, type: 2}
-      propertyPath: villageToWorkplace.Array.size
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 468386, guid: 2a31f4e3f5a25ef4892344ae5a7af533, type: 2}
       propertyPath: m_LocalPosition.x
       value: -20.51
@@ -482,28 +478,30 @@ Prefab:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11465100, guid: 2a31f4e3f5a25ef4892344ae5a7af533, type: 2}
-      propertyPath: speed
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11465100, guid: 2a31f4e3f5a25ef4892344ae5a7af533, type: 2}
-      propertyPath: villageToWorkplace.Array.data[1].y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11465100, guid: 2a31f4e3f5a25ef4892344ae5a7af533, type: 2}
       propertyPath: Village
       value: 
       objectReference: {fileID: 223971024}
-    - target: {fileID: 11465100, guid: 2a31f4e3f5a25ef4892344ae5a7af533, type: 2}
-      propertyPath: job
-      value: Farmer
-      objectReference: {fileID: 0}
-    - target: {fileID: 11465100, guid: 2a31f4e3f5a25ef4892344ae5a7af533, type: 2}
-      propertyPath: collectTime
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2a31f4e3f5a25ef4892344ae5a7af533, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &534876019 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 153878, guid: 2a31f4e3f5a25ef4892344ae5a7af533, type: 2}
+  m_PrefabInternal: {fileID: 534876018}
+--- !u!61 &534876020
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 534876019}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 0.27, y: 0.26}
 --- !u!1001 &550992084
 Prefab:
   m_ObjectHideFlags: 0
@@ -941,6 +939,52 @@ Transform:
   m_Children: []
   m_Father: {fileID: 950477533}
   m_RootOrder: 1
+--- !u!1001 &1564370129
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 437568, guid: 0f44d2b1b2f53444895565620b3b5d23, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 437568, guid: 0f44d2b1b2f53444895565620b3b5d23, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 437568, guid: 0f44d2b1b2f53444895565620b3b5d23, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 437568, guid: 0f44d2b1b2f53444895565620b3b5d23, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 437568, guid: 0f44d2b1b2f53444895565620b3b5d23, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 437568, guid: 0f44d2b1b2f53444895565620b3b5d23, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 437568, guid: 0f44d2b1b2f53444895565620b3b5d23, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 437568, guid: 0f44d2b1b2f53444895565620b3b5d23, type: 2}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 11491378, guid: 0f44d2b1b2f53444895565620b3b5d23, type: 2}
+      propertyPath: RitualPrefab
+      value: 
+      objectReference: {fileID: 134782, guid: d95e3db50e175924ca412e4615d39e65, type: 2}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 0f44d2b1b2f53444895565620b3b5d23, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1589905503
 GameObject:
   m_ObjectHideFlags: 0
