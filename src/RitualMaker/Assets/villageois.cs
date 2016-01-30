@@ -102,7 +102,6 @@ public class villageois : MonoBehaviour {
                 {
                     timer = 0f;
                     food++;
-                    Debug.Log(food);
                 }
                 else if (food == maxFood)
                 {
