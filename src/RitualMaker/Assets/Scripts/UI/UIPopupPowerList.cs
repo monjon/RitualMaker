@@ -18,7 +18,7 @@ public class UIPopupPowerList : UIPopUp {
 
 		if(this.PowerWheelBase != null){
 
-			Vector3 pos = new Vector3(Mathf.Clamp(Input.mousePosition.x, Camera.main.pixelWidth *0.15f, Camera.main.pixelWidth*0.85f), Mathf.Clamp(Input.mousePosition.y,Camera.main.pixelHeight *0.15f, Camera.main.pixelHeight*0.85f ), 0f);
+			Vector3 pos = new Vector3(Mathf.Clamp(Input.mousePosition.x, Camera.main.pixelWidth *0.2f, Camera.main.pixelWidth*0.8f), Mathf.Clamp(Input.mousePosition.y,Camera.main.pixelHeight *0.25f, Camera.main.pixelHeight*0.75f ), 0f);
 
 			this.PowerWheelBase.anchoredPosition3D = pos;
 
