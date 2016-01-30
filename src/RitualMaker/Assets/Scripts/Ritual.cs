@@ -14,7 +14,9 @@ public class Ritual : MonoBehaviour
 
 	void Start ()
     {
-	
+		// TMP, to be sure thta a villager is checked by the creat ritual from RitualManager
+		Debug.Log("Ritual.Start");
+
 	}
 	
 	void Update ()
