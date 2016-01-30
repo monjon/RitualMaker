@@ -15,5 +15,4 @@ public class Fire : MonoBehaviour {
 		Debug.Log ("Change mouse cursor");
 		gc.ActivatePower ("Fire");
 	}
-		
 }
