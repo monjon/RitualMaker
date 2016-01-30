@@ -6,7 +6,6 @@ public class UIScreenInGame : UIScreen {
 	// Properties
 	//
 
-	public bool isCastingPower = false;
 
 	//TODO :
 	//public Power CurrentSelectedPower;
@@ -17,10 +16,10 @@ public class UIScreenInGame : UIScreen {
 	public void Update(){
 
 		// On a left click
-		if(UIScreenManager.Instance != null && UIScreenManager.Instance.CurrentScreen == this && Input.GetKeyDown(KeyCode.Mouse0)){
+		if(UIScreenManager.Instance != null && GameController.Instance != null && UIScreenManager.Instance.CurrentScreen == this && Input.GetMouseButtonDown(0)){
 
 			// If we are not casting a popup is not open
-			if(!this.isCastingPower && UIScreenManager.Instance.CurrentPopUp == null){
+			if(!GameController.Instance.IsPowerActive && UIScreenManager.Instance.CurrentPopUp == null && GameController.Instance.IsPowerReady){
 
 				// TODO : if villager, or village selected, show popup info
 
@@ -28,24 +27,9 @@ public class UIScreenInGame : UIScreen {
 				this.OpenOtherPopUp("PowerList");
 
 			}
-			// If we are casting a power
-			else if(this.isCastingPower){
-
-				Vector3 castTarget = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-				Debug.Log("UIScreenInGame.Update - Cast target : "+castTarget);
-
-				// TODO :
-				// this.CurrentlySelectedPower.CastAt(castTarget);
-
-			}
-
 
 		}
 
 	}
-
-
-
 
 }
