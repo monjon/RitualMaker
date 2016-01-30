@@ -12,7 +12,6 @@ GameObject:
   - 114: {fileID: 11465100}
   - 114: {fileID: 11485138}
   - 61: {fileID: 6165042}
-  - 61: {fileID: 6141398}
   m_Layer: 0
   m_Name: peasant
   m_TagString: peasant
@@ -32,20 +31,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!61 &6141398
-BoxCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 153878}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Size: {x: 0.27, y: 0.26}
 --- !u!61 &6165042
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -71,13 +56,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f3e23189c03f415690c410ad7a33ebc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
-  collectTime: 10
+  speed: 1
+  collectTime: 1
   Village: {fileID: 0}
   maxFood: 10
   food: 0
   sex: 
-  job: 
+  job: Farmer
   health: 
   age: 
 --- !u!114 &11485138
