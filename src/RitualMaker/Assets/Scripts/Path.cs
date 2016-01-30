@@ -16,12 +16,6 @@ public class Path : MonoBehaviour {
 	// Methods
 	//
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-
-
 
 	#if UNITY_EDITOR
 	public void OnDrawGizmos(){
