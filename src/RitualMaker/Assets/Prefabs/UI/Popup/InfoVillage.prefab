@@ -337,7 +337,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.653}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -616,6 +616,10 @@ MonoBehaviour:
   PopupID: InfoVillage
   BackButtonAction: 1
   BackActionParam: Only for open other, Popup or screen ID
+  FoodCount: {fileID: 11482020}
+  MineralsCount: {fileID: 11425070}
+  IntelCount: {fileID: 11470612}
+  PopulationCount: {fileID: 11405106}
 --- !u!114 &11455170
 MonoBehaviour:
   m_ObjectHideFlags: 1

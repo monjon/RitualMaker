@@ -71,4 +71,19 @@ public class Village : MonoBehaviour
             }
         }
     }
+
+	public void OnMouseDown(){
+
+		// If there is no power activated, and there is no popup shown
+		if(GameController.Instance != null && !GameController.Instance.IsPowerActive && UIScreenManager.Instance != null && UIScreenManager.Instance.CurrentPopUp == null){
+			// Show the info popup
+			UIScreenManager.Instance.OpenPopUp("InfoVillage");
+
+			// Setup the popup with info from this village
+			((UIPopupInfoVillage)UIScreenManager.Instance.CurrentPopUp).SetVillageInfo(this);
+
+		}
+
+	}
+
 }
