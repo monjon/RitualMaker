@@ -93,7 +93,7 @@ public class GameController : MonoBehaviour {
 				// Call the ritual manager to let him know a power was used
 				if(RitualManager.Instance != null){
 					Debug.Log("GameController.Update - Power activated - range : "+range+", mousePos : "+mousePos+", typePower : "+this.TypeOfPower);
-					RitualManager.Instance.CreateRitual(new Vector2(mousePos.x, mousePos.y) , range, this.TypeOfPower);
+					RitualManager.Instance.CreateRitual(new Vector2(mousePos.x, mousePos.y) , range, this.TypeOfPower, -1);
 				}
 
 			}

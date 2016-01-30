@@ -21,7 +21,7 @@ public class villageois : MonoBehaviour {
     private int i = 0;
 
     [HideInInspector]
-    public Dictionary<string, int> Ritual;
+    public Dictionary<string, int> Ritual = new Dictionary<string,int>();
 
     private enum playerState
     {
@@ -59,7 +59,7 @@ public class villageois : MonoBehaviour {
 
     public void Fear()
     {
-
+        Debug.Log("HUUUH");
     }
 
     public void WakeUp()
