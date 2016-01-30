@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GameController : MonoBehaviour {
 
@@ -44,9 +45,8 @@ public class GameController : MonoBehaviour {
 	public GameObject LightningParticle;
 	public GameObject BoostParticle;
 
-	[Header("Power Range")]
-	public float FireRange = 1f;
-	public float LightningRange = 1f;
+	[Header("GodPowers")]
+	public List<GodPower> GodPowers = new List<GodPower>();
 
 	// Methods
 	//
@@ -75,7 +75,7 @@ public class GameController : MonoBehaviour {
 					// Instantiate the prefab effect during runtime at the mouse position
 					GameObject go = (GameObject) GameObject.Instantiate (FireParticle, mousePos, Quaternion.identity);
 					Destroy (go, 2);
-					range = this.FireRange;
+					range = this.GetPowerByID("Fire").Range;
 					break;
 				case "Lightning":
 					Debug.Log ("Lightning power displayed");
@@ -83,11 +83,12 @@ public class GameController : MonoBehaviour {
 					mousePos.y += 7.3f;
 					GameObject goLightning = (GameObject) GameObject.Instantiate (LightningParticle, mousePos, Quaternion.identity);
 					Destroy (goLightning, 2);
-					range = this.LightningRange;
+					range = this.GetPowerByID("Lightning").Range;
 					break;
 				case "Boost":
 					GameObject goBoost = (GameObject) GameObject.Instantiate (BoostParticle, mousePos, Quaternion.identity);
 					Destroy (goBoost, 2);
+					range = this.GetPowerByID("Boost").Range;
 					break;
 				default:
 					break;
@@ -98,7 +99,7 @@ public class GameController : MonoBehaviour {
 				// Call the ritual manager to let him know a power was used
 				if(RitualManager.Instance != null){
 					Debug.Log("GameController.Update - Power activated - range : "+range+", mousePos : "+mousePos+", typePower : "+this.TypeOfPower);
-					RitualManager.Instance.CreateRitual(new Vector2(mousePos.x, mousePos.y) , range, this.TypeOfPower, -1);
+					RitualManager.Instance.CreateRitual(new Vector2(mousePos.x, mousePos.y) , range, this.TypeOfPower, this.GetPowerByID(this.TypeOfPower).FearLove);
 				}
 
 			}
@@ -121,4 +122,19 @@ public class GameController : MonoBehaviour {
 		PowerIsActivated = true;
 		TypeOfPower = powerName;
 	}
+
+	public GodPower GetPowerByID(string powerID){
+
+		foreach(GodPower gp in this.GodPowers){
+			if(gp.PowerID == powerID){
+				return gp;
+			}
+		}
+
+		Debug.Log("GameController.GetPowerByID - ID not found : "+powerID);
+		return null;
+
+	}
+
+
 }
