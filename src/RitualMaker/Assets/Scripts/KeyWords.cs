@@ -4,14 +4,16 @@ using System.Collections.Generic;
 
 public class KeyWords : MonoBehaviour 
 {
-    public List<string> KeyWordsList = new List<string>();
+
+    [HideInInspector]
+    public List<string> KeyWordsList;
 
 	void Start () 
     {
 	
 	}
 	
-	void Update ()
+	void Update () 
     {
 	
 	}

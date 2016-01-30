@@ -2,8 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Ritual : MonoBehaviour
+public class Ritual : MonoBehaviour 
 {
+
     [HideInInspector]
     public List<string> keywords;
     [HideInInspector]
@@ -11,12 +12,12 @@ public class Ritual : MonoBehaviour
     [HideInInspector]
     public int faith;
 
-	void Start () 
+	void Start ()
     {
 	
 	}
 	
-	void Update () 
+	void Update ()
     {
 	
 	}
