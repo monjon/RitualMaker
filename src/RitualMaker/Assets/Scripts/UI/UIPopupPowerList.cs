@@ -38,4 +38,15 @@ public class UIPopupPowerList : UIPopUp {
 
 	}
 
+	public void ActivatePower(string powerID){
+
+		// activate the power through the game controller
+		if(GameController.Instance != null){
+
+			GameController.Instance.ActivatePower(powerID);
+			this.ClosePopUp();
+		}
+
+	}
+
 }
