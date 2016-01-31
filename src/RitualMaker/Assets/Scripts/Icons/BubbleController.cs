@@ -3,23 +3,16 @@ using System.Collections;
 
 public class BubbleController : MonoBehaviour {
 
-	public string VillageoisJob;
-
-	public GameObject FarmIcon;
-	public GameObject FishingIcon;
-
-	public GameObject ChildObject;
-
 	private SpriteRenderer sp;
 
 	// Use this for initialization
 	void Start () {
-		sp = ChildObject.GetComponent<SpriteRenderer> ();
 
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		ShowHide ();
 //		switch (VillageoisJob) {
 //		case "Farmer":
 //			sp.sprite = FarmIcon.GetComponent<SpriteRenderer>().sprite;
@@ -44,5 +37,10 @@ public class BubbleController : MonoBehaviour {
 //		default:
 //			break;
 //		}
+	}
+
+	IEnumerator ShowHide() {
+		gameObject.SetActive (false);
+		yield return new WaitForSeconds(1f);
 	}
 }
