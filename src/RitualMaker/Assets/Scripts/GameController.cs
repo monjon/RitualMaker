@@ -141,7 +141,7 @@ public class GameController : MonoBehaviour {
 				case "Heal":
 					GameObject goHeal = (GameObject)GameObject.Instantiate (HealParticle);
 					goHeal.transform.position = mousePos;
-					Destroy (goHeal, 2);
+					Destroy (goHeal, 1.5f);
 
 					// Play the heal spell sound
 					if(SoundManager.Instance != null){
