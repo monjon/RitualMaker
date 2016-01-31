@@ -99,6 +99,16 @@ public class RitualManager : MonoBehaviour
                         touched.GetComponent<villageois>().Fear();
 						villagerAfraid = true;
 					}
+                    if (powerName == "Boost")
+                    {
+                        touched.GetComponent<villageois>().boosted = true;
+                        touched.GetComponent<villageois>().speed = 3;
+                        touched.GetComponent<villageois>().maxFood = 20;
+                    }
+                    if (powerName == "Heal")
+                    {
+                        touched.GetComponent<villageois>().health = "Healthy";
+                    }
                 }
             }
 
