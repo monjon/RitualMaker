@@ -288,8 +288,8 @@ public class villageois : MonoBehaviour
 				animator.SetBool ("WalkingRight", false);
 				animator.SetBool ("Idle", true);
 			}
-			transform.position = Vector3.MoveTowards(transform.position, destination, Time.fixedDeltaTime * speed * coeff);
-		}
+            transform.position = Vector3.MoveTowards(transform.position, destination, Time.fixedDeltaTime * speed * coeff);
+        }
 
 	}
 
