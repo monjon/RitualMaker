@@ -6,6 +6,7 @@ public class villageois : MonoBehaviour
 {
     private Vector3 destination;
     private List<Vector3> villageToWorkplace = new List<Vector3>();
+	private Animator animator;
 
     public float speed;
     public float collectTime = 10f;
@@ -163,6 +164,8 @@ public class villageois : MonoBehaviour
     {
         pState = playerState.isGoingToWork;
 
+		animator = GetComponent<Animator> ();
+
         SetKeywords();
 
         SetPathPoints();
@@ -249,11 +252,31 @@ public class villageois : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-    void moove(float coeff)
-    {
-        if (transform.position != destination)
-            transform.position = Vector3.MoveTowards(transform.position, destination, Time.fixedDeltaTime * speed * coeff);
-    }
+	void moove(float coeff)
+	{
+		if (transform.position != destination) {
+			var tmp = destination - transform.position;
+			if (tmp.x > 0) {
+				Debug.Log ("Right");
+
+				animator.SetBool ("WalkingLeft", false);
+				animator.SetBool ("Idle", false);
+				animator.SetBool ("WalkingRight", true);
+			} else if (tmp.x < 0) {
+				Debug.Log ("Right");
+
+				animator.SetBool ("WalkingRight", false);
+				animator.SetBool ("Idle", false);
+				animator.SetBool ("WalkingLeft", true);
+			} else {
+				animator.SetBool ("WalkingLeft", false);
+				animator.SetBool ("WalkingRight", false);
+				animator.SetBool ("Idle", true);
+			}
+			transform.position = Vector3.MoveTowards(transform.position, destination, Time.fixedDeltaTime * speed * coeff);
+		}
+
+	}
 
     // Update is called once per frame
     void Update()
