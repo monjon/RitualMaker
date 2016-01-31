@@ -46,7 +46,15 @@ public class Village : MonoBehaviour
 	
 	void Update () 
     {
-	
+        if (faith >= 30)
+        {
+            ++GameController.Instance.ActionPoints;
+            if (GameController.Instance.ActionPoints > GameController.Instance.MaxActionPoints)
+            {
+                GameController.Instance.ActionPoints = GameController.Instance.MaxActionPoints;
+            }
+            faith = 0;
+        }
 	}
 
     public void WakeUpMOFOS()
@@ -77,16 +85,6 @@ public class Village : MonoBehaviour
 
         if (GameController.Instance.TotalActionPointsUsed >= 30)
             UnlockedJobs.Add("Blacksmith");
-
-        if (faith >= 100)
-        {
-            ++GameController.Instance.ActionPoints;
-            if (GameController.Instance.ActionPoints > GameController.Instance.MaxActionPoints)
-            {
-                GameController.Instance.ActionPoints = GameController.Instance.MaxActionPoints;
-            }
-            faith = 0;
-        }
 
         if (food < 0)
         {
