@@ -43,6 +43,7 @@ public class GameController : MonoBehaviour {
 	public GameObject FireParticle;
 	public GameObject LightningParticle;
 	public GameObject BoostParticle;
+	public GameObject HealParticle;
 
 	[Header("Power Range")]
 	public float FireRange = 1f;
@@ -88,6 +89,11 @@ public class GameController : MonoBehaviour {
 				case "Boost":
 					GameObject goBoost = (GameObject) GameObject.Instantiate (BoostParticle, mousePos, Quaternion.identity);
 					Destroy (goBoost, 2);
+					break;
+				case "Heal":
+					GameObject goHeal = (GameObject)GameObject.Instantiate (HealParticle);
+					goHeal.transform.position = mousePos;
+					Destroy (goHeal, 2);
 					break;
 				default:
 					break;
