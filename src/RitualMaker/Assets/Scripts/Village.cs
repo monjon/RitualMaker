@@ -84,7 +84,26 @@ public class Village : MonoBehaviour
         Debug.Log(dwellersWithRituals.Count);
         GameObject selectedDweller = dwellersWithRituals[Random.Range(0, dwellersWithRituals.Count)];
 
-        foreach (string key in selectedDweller.GetComponent<villageois>().Ritual.Keys)
+        List<string> selectedConditions = new List<string>();
+        List<string> words = new List<string>();
+        words.AddRange(selectedDweller.GetComponent<villageois>().Ritual.Keys);
+
+        if (words.Count < 3)
+        {
+            foreach (string w in words)
+                selectedConditions.Add(w);
+        }
+        else
+        {
+            for (int i = 0; i < 3; ++i)
+            {
+                int r = Random.Range(0, words.Count);
+                selectedConditions.Add(words[r]);
+                words.Remove(words[r]);
+            }
+        }
+
+        foreach (string key in selectedConditions)
         {
             Debug.Log("Condition : " + key);
             Debug.Log("Value : " + selectedDweller.GetComponent<villageois>().Ritual[key]);
