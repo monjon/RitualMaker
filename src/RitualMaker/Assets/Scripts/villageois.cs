@@ -172,7 +172,8 @@ public class villageois : MonoBehaviour
 
     public void Fear()
     {
-        pState = playerState.isGoingBackHome;
+        if (pState != playerState.isResting)
+            pState = playerState.isGoingBackHome;
         speed *= 2;
         --i;
         if (i < 0)
