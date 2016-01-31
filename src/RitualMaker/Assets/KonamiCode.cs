@@ -11,6 +11,9 @@ public class KonamiCode : MonoBehaviour
 
     public bool KonamiCodeEntered = false;
 
+	public GameObject DeadGoat;
+	public GameObject SH;
+
 	void Start () 
     {
 	
@@ -43,8 +46,13 @@ public class KonamiCode : MonoBehaviour
                     {
                         if (KonamiCodeList.Count == CurrentEntry.Count)
                         {
-                            Debug.Log("KONAMI CODE ACTIVATED");
+							Vector3 tmpPos = SH.transform.position;
+							tmpPos.y -= 1f;
+							GameObject.Instantiate (DeadGoat, tmpPos, Quaternion.identity);
+
                             KonamiCodeEntered = true;
+
+							Destroy (this.gameObject);
                         }
                     }
                 }
