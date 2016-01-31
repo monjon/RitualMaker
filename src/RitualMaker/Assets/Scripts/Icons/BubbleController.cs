@@ -7,12 +7,11 @@ public class BubbleController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
+		StartCoroutine(ShowHide());
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		ShowHide ();
 //		switch (VillageoisJob) {
 //		case "Farmer":
 //			sp.sprite = FarmIcon.GetComponent<SpriteRenderer>().sprite;
@@ -40,7 +39,8 @@ public class BubbleController : MonoBehaviour {
 	}
 
 	IEnumerator ShowHide() {
+		var rndTmps = Random.Range (2.0F, 10.0F);
+		yield return new WaitForSeconds(rndTmps);
 		gameObject.SetActive (false);
-		yield return new WaitForSeconds(1f);
 	}
 }
