@@ -14,11 +14,15 @@ public class Spots
 public class Village : MonoBehaviour 
 {
 
-    public int food = 50;
-    public int minerals = 50;
-    public int intel = 50;
+    public GameObject PeasantPrefab;
 
-    public int chancesGettingSick = 5; // percents
+    public int food = 50;
+    public int wood = 0;
+    public int intel = 0;
+    public int minerals = 0;
+    public int faith = 0;
+
+    public int chancesGettingSick = 10; // percents
 
     [SerializeField]
     public List<Spots> Spots = new List<Spots>();
@@ -26,10 +30,19 @@ public class Village : MonoBehaviour
     [HideInInspector]
     public List<GameObject> dwellers;
 
+    [HideInInspector]
+    public List<string> UnlockedJobs = new List<string>();
+
+    void Awake()
+    {
+        UnlockedJobs.Add("Farmer");
+        UnlockedJobs.Add("Fisher");
+    }
+
 	void Start () 
     {
-	
-	}
+
+    }
 	
 	void Update () 
     {
@@ -55,6 +68,25 @@ public class Village : MonoBehaviour
     public void UpdateStocks()
     {
         food -= dwellers.Count;
+
+        if (GameController.Instance.TotalActionPointsUsed >= 10)
+            UnlockedJobs.Add("Hunter");
+
+        if (GameController.Instance.TotalActionPointsUsed >= 20)
+            UnlockedJobs.Add("Miner");
+
+        if (GameController.Instance.TotalActionPointsUsed >= 30)
+            UnlockedJobs.Add("Blacksmith");
+
+        if (faith >= 100)
+        {
+            ++GameController.Instance.ActionPoints;
+            if (GameController.Instance.ActionPoints > GameController.Instance.MaxActionPoints)
+            {
+                GameController.Instance.ActionPoints = GameController.Instance.MaxActionPoints;
+            }
+            faith = 0;
+        }
 
         if (food < 0)
         {
@@ -150,6 +182,19 @@ public class Village : MonoBehaviour
                 //Stalemate;
                 // NOthing happens
             }
+        }
+
+        if (wood > 100 &&
+            food > 25)
+        {
+            wood -= 100;
+            food -= 25;
+
+            GameObject newPeasant = (GameObject)GameObject.Instantiate(PeasantPrefab, transform.position, Quaternion.identity);
+
+            newPeasant.GetComponent<villageois>().Randomize();
+            newPeasant.GetComponent<villageois>().Village = this.gameObject;
+            dwellers.Add(newPeasant);
         }
     }
 

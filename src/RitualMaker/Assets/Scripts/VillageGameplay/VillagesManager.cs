@@ -14,6 +14,8 @@ public class VillagesManager : MonoBehaviour
     private float actualTime = 0.0f;
     private int numberOfCycles = 0;
 
+    private int numberOfVillages = 1;
+
     public List<GameObject> Villages;
 
 	void Start ()
@@ -26,7 +28,16 @@ public class VillagesManager : MonoBehaviour
 	void Update ()
     {
         float dt = Time.deltaTime * editor;
-	
+
+        if (numberOfVillages == 1)
+            GameController.Instance.MaxActionPoints = 10;
+
+        if (numberOfVillages == 2)
+            GameController.Instance.MaxActionPoints = 15;
+
+        if (numberOfVillages == 3)
+            GameController.Instance.MaxActionPoints = 20;
+
         if (timer >= TimeUnit)
         {
             timer = 0.0f;
