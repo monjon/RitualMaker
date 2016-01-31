@@ -1,8 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class RituelHolder : MonoBehaviour {
 
-	// TODO : Setup the interface this villager have about rituel
+	// Properties
+	//
+
+	public Text RituelKeyWord;
+	public Text RituelLoveFear;
 
 }
