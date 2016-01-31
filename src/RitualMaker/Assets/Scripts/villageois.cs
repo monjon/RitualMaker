@@ -321,13 +321,11 @@ public class villageois : MonoBehaviour
 
             case playerState.isWorking:
                 timer = timer + Time.deltaTime;
-                destination = new Vector3(villageToWorkplace[villageToWorkplace.Count - 1].x + variantX, villageToWorkplace[villageToWorkplace.Count - 1].y + variantY, 0);
                 if (food < maxFood && timer >= collectTime)
                 {
-                    if (food % 2 == 0)
-                        variantX = variantX * -1;
-                    else if (food % 3 == 0)
-                        variantY = variantY * -1;
+                    variantX = Random.value - 0.5f;
+                    variantY = Random.value - 0.5f;
+                    destination = new Vector3(villageToWorkplace[villageToWorkplace.Count - 1].x + variantX, villageToWorkplace[villageToWorkplace.Count - 1].y + variantY, 0);
                     timer = 0f;
                     food++;
                 }
