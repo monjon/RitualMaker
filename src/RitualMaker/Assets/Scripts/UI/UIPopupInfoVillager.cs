@@ -35,6 +35,18 @@ public class UIPopupInfoVillager : UIPopUp {
 			// Set the rites holder
 			if(this.RitesList != null && this.RiteHolderPrefab != null){
 
+				// Bad way to clean the content
+				GameObject tmp = new GameObject();
+
+				// Clean the rite list
+				foreach(Transform t in this.RitesList.GetComponentsInChildren<Transform>()){
+					if(t != this.RitesList.transform){
+						t.SetParent(tmp.transform);
+					}
+				}
+
+				GameObject.Destroy(tmp);
+
 				// For each keyword in the dico
 				foreach(KeyValuePair<string, int> kvp in v.Ritual){
 
