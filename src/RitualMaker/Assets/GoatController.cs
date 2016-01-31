@@ -8,9 +8,12 @@ public class GoatController : MonoBehaviour
     public float TimeToWait = 2.0f;
     public float Speed;
 
+	private Animator goatAnimator;
+
 	void Start ()
     {
         nextDirection = new Vector3(transform.position.x + Random.Range(-2.0f, 3.0f), transform.position.y + Random.Range(-2.0f, 3.0f), 0.0f);
+		goatAnimator = gameObject.GetComponent<Animator> ();
     }
 
     void Update()
@@ -24,6 +27,9 @@ public class GoatController : MonoBehaviour
         {
             TimeToWait = 2.0f;
             nextDirection = new Vector3(transform.position.x + Random.Range(-2.0f, 3.0f), transform.position.y + Random.Range(-2.0f, 3.0f), 0.0f);
+			goatAnimator.SetBool ("Idle", true);
+			goatAnimator.SetBool ("Left", false);
+			goatAnimator.SetBool ("Right", false);
         }
 
     }
@@ -33,6 +39,19 @@ public class GoatController : MonoBehaviour
         if (TimeToWait <= 0.0f)
         {
             transform.position = Vector3.MoveTowards(transform.position, nextDirection, Time.fixedDeltaTime * Speed);
+			Vector3 tmpPos = transform.position - nextDirection;
+			if(tmpPos.x < 0){
+				goatAnimator.SetBool ("Right", true);
+				goatAnimator.SetBool ("Idle", false);
+				goatAnimator.SetBool ("Left", false);
+				gameObject.GetComponent<SpriteRenderer> ().flipX = false;
+			}
+			if(tmpPos.x > 0){
+				goatAnimator.SetBool ("Right", false);
+				goatAnimator.SetBool ("Idle", false);
+				goatAnimator.SetBool ("Left", true);
+				gameObject.GetComponent<SpriteRenderer> ().flipX = true;
+			}
         }
 
         if (transform.position.y > 8.5f)
