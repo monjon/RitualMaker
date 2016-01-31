@@ -40,9 +40,6 @@ public class villageois : MonoBehaviour
         isGoingBackHome,
         isResting,
         isSleeping,
-        isGoingToPray,
-        isPraying,
-        isBackFromRituals,
     }
 
     private playerState pState;
@@ -298,10 +295,7 @@ public class villageois : MonoBehaviour
                 destination = villageToWorkplace[i];
                 if (transform.position == villageToWorkplace[0])
                 {
-                    if (Random.value >= faith)
-                        pState = playerState.isGoingToWork;
-                    else
-                        pState = playerState.isGoingToPray;
+                    pState = playerState.isGoingToWork;
                     if (job == "Farmer" || job == "Fisher")
                         Village.GetComponent<Village>().food += food;
                     else if (job == "Hunter")
@@ -359,28 +353,6 @@ public class villageois : MonoBehaviour
                 }
                 break;
 
-            case playerState.isGoingToPray:
-                destination = new Vector3(10, 10, 0);
-                if (transform.position == destination)
-                {
-                    pState = playerState.isPraying;
-                }
-                break;
-
-            case playerState.isPraying:
-                break;
-
-            case playerState.isBackFromRituals:
-                destination = villageToWorkplace[0];
-                if (transform.position == destination)
-                {
-                    if (Random.value >= faith)
-                        pState = playerState.isGoingToWork;
-                    else
-                        pState = playerState.isGoingToPray;
-                }
-                break;
-
             default:
                 break;
 
@@ -410,18 +382,6 @@ public class villageois : MonoBehaviour
                 break;
 
             case playerState.isSleeping:
-                moove(coeff);
-                break;
-
-            case playerState.isGoingToPray:
-                moove(coeff);
-                break;
-
-            case playerState.isPraying:
-                moove(coeff);
-                break;
-
-            case playerState.isBackFromRituals:
                 moove(coeff);
                 break;
 
