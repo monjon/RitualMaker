@@ -63,10 +63,13 @@ public class UIScreenInGame : UIScreen {
 
 		if(SoundManager.Instance != null){
 
+			SoundManager.Instance.StopMusic();
+
 			SoundManager.Instance.MusicOn = !SoundManager.Instance.MusicOn;
 
 			if(SoundManager.Instance.MusicOn){
 				this.Music.sprite = this.MusicOn;
+				SoundManager.Instance.PlayInGameMusic();
 			}
 			else{
 				this.Music.sprite = this.MusicOff;
