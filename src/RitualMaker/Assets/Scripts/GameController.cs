@@ -83,7 +83,7 @@ public class GameController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		// Cooldown for power activated (TMP used for UI)
-		if(!this.PowerIsActivated && this.ActionPoints > 0)
+		if(!this.PowerIsActivated)
         {
 			this.timerPowerUsed -= Time.deltaTime;
 		}
