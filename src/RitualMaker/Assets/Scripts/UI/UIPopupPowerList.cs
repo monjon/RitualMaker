@@ -15,6 +15,8 @@ public class UIPopupPowerList : UIPopUp {
 	[Range(0f, 0.5f)]
 	public float yWheelPos = 0.25f;
 
+	public Text PACount;
+
 	[Header("Power Button")]
 	public Button ButtonFire;
 	public Button ButtonLightning;
@@ -72,6 +74,18 @@ public class UIPopupPowerList : UIPopUp {
 			this.ButtonLightning.GetComponent<Image>().fillAmount = GameController.Instance.GetPowerByID("Lightning").CooldownRate;
 			this.ButtonBoost.GetComponent<Image>().fillAmount = GameController.Instance.GetPowerByID("Boost").CooldownRate;
 			//this.ButtonHeal.GetComponent<Image>().fillAmount = GameController.Instance.GetPowerByID("Heal").CooldownRate;
+
+			// Display remaingin Action Points
+			this.PACount.text = GameController.Instance.ActionPoints.ToString();
+
+			// If there is no more PA
+			if(GameController.Instance.ActionPoints <= 0){
+				// Disable the buttons
+				this.ButtonFire.interactable = false;
+				this.ButtonLightning.interactable = false;
+				this.ButtonBoost.interactable = false;
+				//this.ButtonHeal.interactable = false;
+			}
 
 		}
 
