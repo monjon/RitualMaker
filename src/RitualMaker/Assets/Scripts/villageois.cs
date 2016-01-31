@@ -7,11 +7,13 @@ public class villageois : MonoBehaviour
     private Vector3 destination;
     private List<Vector3> villageToWorkplace = new List<Vector3>();
 	private Animator animator;
+	private GameObject goBubble;
 
     public float speed;
     public float collectTime = 10f;
 
     public GameObject Village;
+	public GameObject Bubble;
 
     public int maxFood = 10;
     public int food = 0;
@@ -53,6 +55,7 @@ public class villageois : MonoBehaviour
 
     void SetPathPoints()
     {
+		
         job = Village.GetComponent<Village>().UnlockedJobs[Random.Range(0, Village.GetComponent<Village>().UnlockedJobs.Count)];
 
         villageToWorkplace.Clear();
@@ -131,6 +134,9 @@ public class villageois : MonoBehaviour
         {
             villageToWorkplace.Add(pos.transform.position);
         }
+
+//		bubbleScript.ChangeSprite (job);
+			
     }
 
     void SetKeywords()
@@ -162,6 +168,11 @@ public class villageois : MonoBehaviour
         pState = playerState.isGoingToWork;
 
 		animator = GetComponent<Animator> ();
+		goBubble = (GameObject) GameObject.Instantiate (Bubble);
+		goBubble.transform.parent = this.transform;
+		goBubble.transform.localPosition = new Vector3 (0.5f, 1f, 0);
+
+		StartCoroutine (ShowHideBubble ());
 
         SetKeywords();
 
@@ -229,6 +240,7 @@ public class villageois : MonoBehaviour
 
         }
 
+
     }
 
     public void GetsSick()
@@ -273,11 +285,14 @@ public class villageois : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+		//goBubble.transform.position = new Vector3 (gameObject.transform.position.x + 1f, gameObject.transform.position.y + 1.2f, 0);
         switch (pState)
         {
             case playerState.isGoingToWork:
                 speed = 1;
                 destination = villageToWorkplace[i];
+				
                 if (transform.position == villageToWorkplace[villageToWorkplace.Count - 1])
                 {
                     pState = playerState.isWorking;
@@ -358,6 +373,33 @@ public class villageois : MonoBehaviour
                 break;
 
         }
+
+		SpriteRenderer spTmp = goBubble.GetComponent<SpriteRenderer> ();
+		switch(job){
+			case "Prayer":
+				spTmp.sprite = GameController.Instance.bubbles [0];
+				break;
+			case "Farmer":
+				spTmp.sprite = GameController.Instance.bubbles [1];
+				break;
+			case "Fisher":
+				spTmp.sprite = GameController.Instance.bubbles [2];
+				break;
+			case "Hunter":
+				spTmp.sprite = GameController.Instance.bubbles [3];
+				break;
+			case "Miner":
+				spTmp.sprite = GameController.Instance.bubbles [4];
+				break;
+			case "Blacksmith":
+				spTmp.sprite = GameController.Instance.bubbles [5];
+				break;
+			default:
+				break;
+		}
+			
+
+
     }
 
     void FixedUpdate()
@@ -407,5 +449,21 @@ public class villageois : MonoBehaviour
         }
 
     }
+
+	IEnumerator ShowHideBubble() {
+		while (true) {
+			var rndTmps = Random.Range (2.0F, 10.0F);
+			//			yield return new WaitForSeconds(rndTmps);
+			if(goBubble.activeSelf){
+				goBubble.SetActive (false);
+			}else{
+				goBubble.SetActive (true);
+			}
+
+			yield return new WaitForSeconds(rndTmps);
+		}
+
+
+	}
 
 }
