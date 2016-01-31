@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class villageois : MonoBehaviour {
     private Vector3 destination;
     private List<Vector3> villageToWorkplace = new List<Vector3>();
+	private Animator animator;
 
     public float speed;
     public float collectTime = 10f;
@@ -82,6 +83,7 @@ public class villageois : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		animator = GetComponent<Animator> ();
         pState = playerState.isGoingToWork;
 
         SetPathPoints();
@@ -158,8 +160,28 @@ public class villageois : MonoBehaviour {
 
     void moove(float coeff)
     {
-        if (transform.position != destination)
-            transform.position = Vector3.MoveTowards(transform.position, destination, Time.fixedDeltaTime * speed * coeff);
+		if (transform.position != destination) {
+			var tmp = destination - transform.position;
+			if (tmp.x > 0) {
+				Debug.Log ("Right");
+
+				animator.SetBool ("WalkingLeft", false);
+				animator.SetBool ("Idle", false);
+				animator.SetBool ("WalkingRight", true);
+			} else if (tmp.x < 0) {
+				Debug.Log ("Right");
+
+				animator.SetBool ("WalkingRight", false);
+				animator.SetBool ("Idle", false);
+				animator.SetBool ("WalkingLeft", true);
+			} else {
+				animator.SetBool ("WalkingLeft", false);
+				animator.SetBool ("WalkingRight", false);
+				animator.SetBool ("Idle", true);
+			}
+			transform.position = Vector3.MoveTowards(transform.position, destination, Time.fixedDeltaTime * speed * coeff);
+		}
+            
     }
 	
 	// Update is called once per frame
