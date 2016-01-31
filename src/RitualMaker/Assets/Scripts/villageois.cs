@@ -43,28 +43,33 @@ public class villageois : MonoBehaviour {
 
     private playerState pState;
 
-	// Use this for initialization
-	void Start () {
-        pState = playerState.isGoingToWork;
-
+    void SetPathPoints()
+    {
         villageToWorkplace.Clear();
         List<Spots> spots = Village.GetComponent<Village>().Spots;
 
         villageToWorkplace.Add(Village.transform.position);
 
+        List<Spots> jobSpots = new List<Spots>();
+
         foreach (Spots spot in spots)
         {
-            if (spot.spotTaken == false && spot.Job == job)
+            if (spot.Job == job)
             {
-                foreach (GameObject waypoint in spot.waypoints)
-                {
-                    villageToWorkplace.Add(waypoint.transform.position);
-                }
-                spot.spotTaken = true;
-                break;
+                jobSpots.Add(spot);
             }
         }
 
+        Spots selectedSpot = jobSpots[Random.Range(0, jobSpots.Count)];
+
+        foreach (GameObject pos in selectedSpot.waypoints)
+        {
+            villageToWorkplace.Add(pos.transform.position);
+        }
+    }
+
+    void SetKeywords()
+    {
         KeyWords k = GetComponent<KeyWords>();
 
         k.KeyWordsList.Clear();
@@ -73,6 +78,15 @@ public class villageois : MonoBehaviour {
         k.KeyWordsList.Add(health);
         k.KeyWordsList.Add(age);
         k.KeyWordsList.Add(sex);
+    }
+
+	// Use this for initialization
+	void Start () {
+        pState = playerState.isGoingToWork;
+
+        SetPathPoints();
+
+        SetKeywords();
 
         Village.GetComponent<Village>().dwellers.Add(this.gameObject);
 	}
@@ -124,14 +138,7 @@ public class villageois : MonoBehaviour {
             Die();
         }
 
-        KeyWords k = GetComponent<KeyWords>();
-
-        k.KeyWordsList.Clear();
-
-        k.KeyWordsList.Add(job);
-        k.KeyWordsList.Add(health);
-        k.KeyWordsList.Add(age);
-        k.KeyWordsList.Add(sex);
+        SetKeywords();
     }
 
     public void GetsSick()
