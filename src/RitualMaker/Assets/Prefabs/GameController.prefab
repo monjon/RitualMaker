@@ -42,11 +42,22 @@ MonoBehaviour:
   FireParticle: {fileID: 100000, guid: f766cb0ed6750804ebf9a931fb5412f2, type: 2}
   LightningParticle: {fileID: 122066, guid: 6a80acc1bcbd24a1785132763562988a, type: 2}
   BoostParticle: {fileID: 159216, guid: f310226bdfbb746e9b0d684ac0afb0fa, type: 2}
-  HealParticle: {fileID: 0}
+  HealParticle: {fileID: 192302, guid: 281f7a14540824cf3a2acbd3b517bbc0, type: 2}
+  ActionPoints: 3
+  TotalActionPointsUsed: 0
+  MaxActionPoints: 10
+  bubbles:
+  - {fileID: 21300000, guid: 15df4851470ea46c7bce580ebd8e73bc, type: 3}
+  - {fileID: 21300000, guid: 191005bae3a0949e59c2fb3bd7536cb8, type: 3}
+  - {fileID: 21300000, guid: 7e463f85d748149b6a3f311328a7932c, type: 3}
+  - {fileID: 21300000, guid: 8932933d66be84b839beac8a48a517df, type: 3}
+  - {fileID: 21300000, guid: 12d997c8a128e4f50b294e16c5302d06, type: 3}
+  - {fileID: 21300000, guid: 42ad78704cca74965969c5f48e5a3eba, type: 3}
   GodPowersPrefab:
   - {fileID: 11467652, guid: 8e9c89b73f3398b40b6665934f5f2fe3, type: 2}
   - {fileID: 11447998, guid: 56180fe27a311684da3e24c88adec58f, type: 2}
   - {fileID: 11444886, guid: c68b56c5a8eeeaf46be12a11a634686b, type: 2}
+  - {fileID: 11467652, guid: 943c5b549ede73c4ab0da5f4af68f118, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -68,12 +68,12 @@ public class UIPopupPowerList : UIPopUp {
 			this.ButtonFire.interactable = !GameController.Instance.GetPowerByID("Fire").IsOnCooldown;
 			this.ButtonLightning.interactable = !GameController.Instance.GetPowerByID("Lightning").IsOnCooldown;
 			this.ButtonBoost.interactable = !GameController.Instance.GetPowerByID("Boost").IsOnCooldown;
-			//this.ButtonHeal.interactable = !GameController.Instance.GetPowerByID("Heal").IsOnCooldown;
+			this.ButtonHeal.interactable = !GameController.Instance.GetPowerByID("Heal").IsOnCooldown;
 
 			this.ButtonFire.GetComponent<Image>().fillAmount = GameController.Instance.GetPowerByID("Fire").CooldownRate;
 			this.ButtonLightning.GetComponent<Image>().fillAmount = GameController.Instance.GetPowerByID("Lightning").CooldownRate;
 			this.ButtonBoost.GetComponent<Image>().fillAmount = GameController.Instance.GetPowerByID("Boost").CooldownRate;
-			//this.ButtonHeal.GetComponent<Image>().fillAmount = GameController.Instance.GetPowerByID("Heal").CooldownRate;
+			this.ButtonHeal.GetComponent<Image>().fillAmount = GameController.Instance.GetPowerByID("Heal").CooldownRate;
 
 			// Display remaingin Action Points
 			this.PACount.text = GameController.Instance.ActionPoints.ToString();
@@ -84,7 +84,7 @@ public class UIPopupPowerList : UIPopUp {
 				this.ButtonFire.interactable = false;
 				this.ButtonLightning.interactable = false;
 				this.ButtonBoost.interactable = false;
-				//this.ButtonHeal.interactable = false;
+				this.ButtonHeal.interactable = false;
 			}
 
 		}

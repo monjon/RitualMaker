@@ -675,7 +675,7 @@ MonoBehaviour:
   MineralsCount: {fileID: 11425070}
   IntelCount: {fileID: 11470612}
   PopulationCount: {fileID: 11405106}
-  FaithCount: {fileID: 0}
+  FaithCount: {fileID: 11482020}
 --- !u!114 &11465874
 MonoBehaviour:
   m_ObjectHideFlags: 1
