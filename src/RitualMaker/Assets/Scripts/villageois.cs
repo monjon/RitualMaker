@@ -257,13 +257,11 @@ public class villageois : MonoBehaviour
 		if (transform.position != destination) {
 			var tmp = destination - transform.position;
 			if (tmp.x > 0) {
-				Debug.Log ("Right");
 
 				animator.SetBool ("WalkingLeft", false);
 				animator.SetBool ("Idle", false);
 				animator.SetBool ("WalkingRight", true);
 			} else if (tmp.x < 0) {
-				Debug.Log ("Right");
 
 				animator.SetBool ("WalkingRight", false);
 				animator.SetBool ("Idle", false);
