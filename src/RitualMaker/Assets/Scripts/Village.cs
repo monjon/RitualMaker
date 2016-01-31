@@ -103,10 +103,51 @@ public class Village : MonoBehaviour
             }
         }
 
+        if (dwellers.Count <= 1)
+            return;
+
+        GameObject otherDweller = dwellers[Random.Range(0, dwellers.Count)];
+        while (otherDweller == selectedDweller)
+        {
+            otherDweller = dwellers[Random.Range(0, dwellers.Count)];
+        }
+
+        Debug.Log(selectedDweller + " / " + otherDweller);
+
         foreach (string key in selectedConditions)
         {
             Debug.Log("Condition : " + key);
             Debug.Log("Value : " + selectedDweller.GetComponent<villageois>().Ritual[key]);
+            if (otherDweller.GetComponent<villageois>().Ritual.ContainsKey(key) == false)
+            {
+                otherDweller.GetComponent<villageois>().Ritual[key] = 0;
+            }
+            Debug.Log("Value : " + otherDweller.GetComponent<villageois>().Ritual[key]);
+
+            int lhs = 10 + Mathf.Abs(selectedDweller.GetComponent<villageois>().Ritual[key]) * 10;
+            int rhs = 10 + Mathf.Abs(otherDweller.GetComponent<villageois>().Ritual[key]) * 10;
+
+            int rlhs = Random.Range(0, lhs);
+            int rrhs = Random.Range(0, rhs);
+
+            if (rlhs > rrhs)
+            {
+                Debug.Log("selectedDweller won the argument;");
+                int a = 1 * (int)Mathf.Sign(selectedDweller.GetComponent<villageois>().Ritual[key]);
+                otherDweller.GetComponent<villageois>().Ritual[key] += a;
+            }
+            else if (rlhs < rrhs)
+            {
+                Debug.Log("otherDweller won the argument;");
+                int a = 1 * (int)Mathf.Sign(otherDweller.GetComponent<villageois>().Ritual[key]);
+                selectedDweller.GetComponent<villageois>().Ritual[key] += a;
+            }
+            else
+            {
+                Debug.Log("StaleMate");
+                //Stalemate;
+                // NOthing happens
+            }
         }
     }
 
