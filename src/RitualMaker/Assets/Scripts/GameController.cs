@@ -46,6 +46,13 @@ public class GameController : MonoBehaviour {
 	public GameObject BoostParticle;
 	public GameObject HealParticle;
 
+    [HideInInspector]
+    public int ActionPoints = 3;
+    [HideInInspector]
+    public int TotalActionPointsUsed = 0;
+    [HideInInspector]
+    public int MaxActionPoints = 10;
+
 	[Header("GodPowers")]
 	public List<GodPower> GodPowers = new List<GodPower>();
 
@@ -54,7 +61,6 @@ public class GameController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
 		// Cooldown for power activated (TMP used for UI)
 		if(!this.PowerIsActivated){
 			this.timerPowerUsed -= Time.deltaTime;

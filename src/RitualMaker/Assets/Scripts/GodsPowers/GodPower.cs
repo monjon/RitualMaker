@@ -14,10 +14,10 @@ public class GodPower : MonoBehaviour {
 	public int FearLove{
 		get {
 				if(this.isFearfull){
-					return 1;
+					return -1;
 				}
 				else{
-					return -1;
+					return 1;
 				}
 			}
 	}

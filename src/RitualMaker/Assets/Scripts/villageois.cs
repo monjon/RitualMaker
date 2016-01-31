@@ -2,7 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class villageois : MonoBehaviour {
+public class villageois : MonoBehaviour
+{
     private Vector3 destination;
     private List<Vector3> villageToWorkplace = new List<Vector3>();
 
@@ -24,10 +25,12 @@ public class villageois : MonoBehaviour {
     private float variantY = 0.5f;
     private float faith = 0.0f;
 
+    private Dictionary<int, int> chanceToPray = new Dictionary<int, int>();
+
     int cyclesSick = 0;
 
     [HideInInspector]
-    public Dictionary<string, int> Ritual = new Dictionary<string,int>();
+    public Dictionary<string, int> Ritual = new Dictionary<string, int>();
 
     private enum playerState
     {
@@ -43,12 +46,76 @@ public class villageois : MonoBehaviour {
 
     private playerState pState;
 
+    public void Randomize()
+    {
+        sex = Random.Range(0, 2) == 0 ? "Male" : "Female";
+        health = "Healthy";
+        age = "Young";
+    }
+
     void SetPathPoints()
     {
+        job = Village.GetComponent<Village>().UnlockedJobs[Random.Range(0, Village.GetComponent<Village>().UnlockedJobs.Count)];
+
         villageToWorkplace.Clear();
         List<Spots> spots = Village.GetComponent<Village>().Spots;
 
         villageToWorkplace.Add(Village.transform.position);
+
+        // Go pray ?
+
+        List<string> conditions = new List<string>();//GetComponent<KeyWords>()
+        conditions.AddRange(GetComponent<KeyWords>().KeyWordsList);
+
+        List<string> selectedConditions = new List<string>();
+
+        if (conditions.Count < 3)
+        {
+            foreach (string t in conditions)
+            {
+                selectedConditions.Add(t);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < 3; ++i)
+            {
+                string s = conditions[Random.Range(0, conditions.Count)];
+                selectedConditions.Add(s);
+                conditions.Remove(s);
+            }
+        }
+
+        int cnt = 0;
+        int total = 0;
+        foreach (string checkConditions in selectedConditions)
+        {
+            if (Ritual.ContainsKey(checkConditions) == false)
+            {
+                total += 0;
+            }
+            else
+            {
+                total += Ritual[checkConditions];
+            }
+            ++cnt;
+        }
+
+        int mean = total / cnt;
+
+        if (mean < -3)
+            mean = -3;
+        if (mean > 3)
+            mean = 3;
+
+        int percentage = chanceToPray[mean];
+
+        int result = Random.Range(0, 100);
+
+        if (result <= percentage)
+        {
+            job = "Prayer";
+        }
 
         List<Spots> jobSpots = new List<Spots>();
 
@@ -80,16 +147,28 @@ public class villageois : MonoBehaviour {
         k.KeyWordsList.Add(sex);
     }
 
-	// Use this for initialization
-	void Start () {
-        pState = playerState.isGoingToWork;
+    void Awake()
+    {
+        chanceToPray[-3] = 100;
+        chanceToPray[-2] = 80;
+        chanceToPray[-1] = 60;
+        chanceToPray[0] = 50;
+        chanceToPray[1] = 40;
+        chanceToPray[2] = 20;
+        chanceToPray[3] = 0;
+    }
 
-        SetPathPoints();
+    // Use this for initialization
+    void Start()
+    {
+        pState = playerState.isGoingToWork;
 
         SetKeywords();
 
+        SetPathPoints();
+
         Village.GetComponent<Village>().dwellers.Add(this.gameObject);
-	}
+    }
 
     public void Fear()
     {
@@ -102,10 +181,7 @@ public class villageois : MonoBehaviour {
 
     public void WakeUp()
     {
-        if (Random.value >= faith)
-            pState = playerState.isGoingToWork;
-        else
-            pState = playerState.isGoingToPray;
+        pState = playerState.isGoingToWork;
 
         ++cycles;
 
@@ -139,6 +215,23 @@ public class villageois : MonoBehaviour {
         }
 
         SetKeywords();
+        SetPathPoints();
+
+        // Change AI behaviour here
+
+        if (job == "Farmer")
+        {
+
+        }
+        else if (job == "Hunter")
+        {
+
+        }
+        else if (job == "Fisher")
+        {
+
+        }
+
     }
 
     public void GetsSick()
@@ -161,15 +254,16 @@ public class villageois : MonoBehaviour {
         if (transform.position != destination)
             transform.position = Vector3.MoveTowards(transform.position, destination, Time.fixedDeltaTime * speed * coeff);
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
         switch (pState)
         {
             case playerState.isGoingToWork:
                 speed = 1;
                 destination = villageToWorkplace[i];
-                if (transform.position == villageToWorkplace[villageToWorkplace.Count -1])
+                if (transform.position == villageToWorkplace[villageToWorkplace.Count - 1])
                 {
                     pState = playerState.isWorking;
                 }
@@ -185,7 +279,17 @@ public class villageois : MonoBehaviour {
                         pState = playerState.isGoingToWork;
                     else
                         pState = playerState.isGoingToPray;
-                    Village.GetComponent<Village>().food += food;
+                    if (job == "Farmer" || job == "Fisher")
+                        Village.GetComponent<Village>().food += food;
+                    else if (job == "Hunter")
+                        Village.GetComponent<Village>().wood += food;
+                    else if (job == "Blacksmith")
+                        Village.GetComponent<Village>().intel += food;
+                    else if (job == "Miner")
+                        Village.GetComponent<Village>().minerals += food;
+                    else if (job == "Prayer")
+                        Village.GetComponent<Village>().faith += food;
+
                     food = 0;
                 }
                 else if (transform.position == villageToWorkplace[i])
@@ -217,8 +321,8 @@ public class villageois : MonoBehaviour {
                 destination = villageToWorkplace[i];
                 if (transform.position == villageToWorkplace[0])
                 {
-                        Village.GetComponent<Village>().food += food;
-                        food = 0;
+                    Village.GetComponent<Village>().food += food;
+                    food = 0;
                     pState = playerState.isSleeping;
                 }
                 else if (transform.position == villageToWorkplace[i])
@@ -235,7 +339,7 @@ public class villageois : MonoBehaviour {
                 break;
 
             case playerState.isGoingToPray:
-                destination = new Vector3(10,10,0);
+                destination = new Vector3(10, 10, 0);
                 if (transform.position == destination)
                 {
                     pState = playerState.isPraying;
@@ -259,7 +363,7 @@ public class villageois : MonoBehaviour {
             default:
                 break;
 
-            }
+        }
     }
 
     void FixedUpdate()
@@ -306,18 +410,20 @@ public class villageois : MonoBehaviour {
     }
 
 
-	public void OnMouseDown(){
+    public void OnMouseDown()
+    {
 
-		// If there is no power activated, and there is no popup shown
-		if(GameController.Instance != null && !GameController.Instance.IsPowerActive && UIScreenManager.Instance != null && UIScreenManager.Instance.CurrentPopUp == null){
-			// Show the info popup
-			UIScreenManager.Instance.OpenPopUp("InfoVillager");
+        // If there is no power activated, and there is no popup shown
+        if (GameController.Instance != null && !GameController.Instance.IsPowerActive && UIScreenManager.Instance != null && UIScreenManager.Instance.CurrentPopUp == null)
+        {
+            // Show the info popup
+            UIScreenManager.Instance.OpenPopUp("InfoVillager");
 
-			// Setup the popup with info from this village
-			((UIPopupInfoVillager)UIScreenManager.Instance.CurrentPopUp).SetVillagerInfo(this);
+            // Setup the popup with info from this village
+            ((UIPopupInfoVillager)UIScreenManager.Instance.CurrentPopUp).SetVillagerInfo(this);
 
-		}
+        }
 
-	}
+    }
 
 }

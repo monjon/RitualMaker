@@ -98,6 +98,8 @@ public class RitualManager : MonoBehaviour
                 }
             }
 
+            --GameController.Instance.ActionPoints;
+            ++GameController.Instance.TotalActionPointsUsed;
         }
         else
         {
