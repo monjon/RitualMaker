@@ -41,7 +41,7 @@ public class RitualManager : MonoBehaviour
         {
             //GameObject newRitual = (GameObject)GameObject.Instantiate(RitualPrefab, Vector3.zero, Quaternion.identity);
 
-            RaycastHit2D[] hits = Physics2D.CircleCastAll(position, range, Vector2.right);
+            RaycastHit2D[] hits = Physics2D.CircleCastAll(position, range, Vector2.zero);
 
             List<string> words = new List<string>();
 
@@ -49,34 +49,27 @@ public class RitualManager : MonoBehaviour
             {
                 GameObject touched = hit.collider.gameObject;
 
-                //if (touched.CompareTag("Villager"))
-                //{
-                //    //Add the ritual to the villager
-
-                //    Ritual r = touched.AddComponent<Ritual>();
-                //    // Init the Ritual data to the Villager
-
-                //}
-
                 //// If the touched villager has a keywords component on him (he should !)
-                //if(touched.GetComponent<KeyWords>() != null){
-                words.AddRange(touched.GetComponent<KeyWords>().KeyWordsList);
-                //}
+                if (touched.GetComponent<KeyWords>())
+                    words.AddRange(touched.GetComponent<KeyWords>().KeyWordsList);
             }
 
-            for (int i = 0; i < words.Count; i++)
-            {
-                string temp = words[i];
-                int randomIndex = Random.Range(i, words.Count);
-                words[i] = words[randomIndex];
-                words[randomIndex] = temp;
-            }
 
             List<string> selectedConditions = new List<string>();
 
-            for (int i = 0; i < 3; ++i)
+            if (words.Count < 3)
             {
-                //selectedConditions.Add(words[i]);
+                foreach (string w in words)
+                    selectedConditions.Add(w);
+            }
+            else
+            {
+                for (int i = 0; i < 3; ++i)
+                {
+                    int r = Random.Range(0, words.Count);
+                    selectedConditions.Add(words[r]);
+                    words.Remove(words[r]);
+                }
             }
 
             foreach (RaycastHit2D hit in hits)
@@ -86,6 +79,7 @@ public class RitualManager : MonoBehaviour
                 if (touched.CompareTag("Villager"))
                 {
                     foreach (string condition in selectedConditions)
+                    {
                         if (touched.GetComponent<villageois>().Ritual.ContainsKey(condition))
                         {
                             touched.GetComponent<villageois>().Ritual[condition] += power;
@@ -98,18 +92,11 @@ public class RitualManager : MonoBehaviour
                         {
                             touched.GetComponent<villageois>().Ritual[condition] = power;
                         }
+                    }
                     if (power < 0)
                         touched.GetComponent<villageois>().Fear();
                 }
             }
-            /*
-            for (int i = 0; i < 3; ++i)
-            {
-                newRitual.GetComponent<Ritual>().keywords.Add(words[i]);
-            }
-            newRitual.GetComponent<Ritual>().godAction = powerName;
-            newRitual.GetComponent<Ritual>().faith = 42;// Change to the action type;
-            */
 
         }
         else
