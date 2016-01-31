@@ -7,11 +7,14 @@ public class villageois : MonoBehaviour
     private Vector3 destination;
     private List<Vector3> villageToWorkplace = new List<Vector3>();
 	private Animator animator;
+	private GameObject goBubble;
 
     public float speed;
     public float collectTime = 10f;
 
     public GameObject Village;
+	public GameObject Bubble;
+	public BubbleController bubbleScript;
 
     public int maxFood = 10;
     public int food = 0;
@@ -134,6 +137,7 @@ public class villageois : MonoBehaviour
         {
             villageToWorkplace.Add(pos.transform.position);
         }
+			
     }
 
     void SetKeywords()
@@ -165,6 +169,7 @@ public class villageois : MonoBehaviour
         pState = playerState.isGoingToWork;
 
 		animator = GetComponent<Animator> ();
+		goBubble = (GameObject) GameObject.Instantiate (Bubble);
 
         SetKeywords();
 
@@ -234,6 +239,7 @@ public class villageois : MonoBehaviour
         {
 
         }
+		var tmpJob = goBubble.GetComponent<ScriptableObject> ();
 
     }
 
@@ -281,11 +287,14 @@ public class villageois : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+		goBubble.
+		goBubble.transform.position = new Vector3 (gameObject.transform.position.x + 1f, gameObject.transform.position.y + 1.2f, 0);
         switch (pState)
         {
             case playerState.isGoingToWork:
                 speed = 1;
                 destination = villageToWorkplace[i];
+				
                 if (transform.position == villageToWorkplace[villageToWorkplace.Count - 1])
                 {
                     pState = playerState.isWorking;

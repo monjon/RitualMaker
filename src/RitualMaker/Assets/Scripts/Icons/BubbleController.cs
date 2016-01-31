@@ -3,23 +3,36 @@ using System.Collections;
 
 public class BubbleController : MonoBehaviour {
 
-	public GameObject Icon;
+	public string VillageoisJob;
+
+	public GameObject FarmIcon;
+	public GameObject FishingIcon;
+
+	public GameObject ChildObject;
+
+	private SpriteRenderer sp;
 
 	// Use this for initialization
 	void Start () {
+		sp = ChildObject.GetComponent<SpriteRenderer> ();
 
-		GameObject go = (GameObject) GameObject.Instantiate (Icon);
-		go.transform.position = new Vector3 (go.transform.position.x, go.transform.position.y, 0);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-//		Vector3 mousePos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
-//		mousePos.z = 0;
-//
-//		Debug.Log (mousePos);
-//
-//		GameObject go = (GameObject) GameObject.Instantiate (Icon, mousePos, Quaternion.identity);
-//		go.transform.position = mousePos;
+		switch (VillageoisJob) {
+		case "Farmer":
+			sp.sprite = FarmIcon.GetComponent<SpriteRenderer>().sprite;
+			break;
+		case "Fisher":
+			sp.sprite = FishingIcon.GetComponent<SpriteRenderer> ().sprite;
+			break;
+		default:
+			break;
+		}
+	}
+
+	public void ChangeSprite(string jobName){
+		Debug.Log (jobName);
 	}
 }
