@@ -22,10 +22,11 @@ public class UIScreenInGame : UIScreen {
 	// Methods
 	//
 
-	public void Update(){
+	public void PopPowerList(){
+
 
 		// On a left click
-		if(UIScreenManager.Instance != null && GameController.Instance != null && UIScreenManager.Instance.CurrentScreen == this && Input.GetMouseButtonDown(0)){
+		if(UIScreenManager.Instance != null && GameController.Instance != null && UIScreenManager.Instance.CurrentScreen){
 
 			// If we are not casting a popup is not open
 			if(!GameController.Instance.IsPowerActive && UIScreenManager.Instance.CurrentPopUp == null && GameController.Instance.IsPowerReady){
