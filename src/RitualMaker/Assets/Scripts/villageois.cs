@@ -14,8 +14,6 @@ public class villageois : MonoBehaviour
 
     public GameObject Village;
 	public GameObject Bubble;
-	[HideInInspector]
-	private BubbleController bubbleScript;
 
     public int maxFood = 10;
     public int food = 0;
@@ -177,6 +175,7 @@ public class villageois : MonoBehaviour
 		goBubble.transform.parent = this.transform;
 		goBubble.transform.localPosition = new Vector3 (0.5f, 1f, 0);
 
+		StartCoroutine (ShowHideBubble ());
 
         SetKeywords();
 
@@ -491,5 +490,21 @@ public class villageois : MonoBehaviour
         }
 
     }
+
+	IEnumerator ShowHideBubble() {
+		while (true) {
+			var rndTmps = Random.Range (2.0F, 10.0F);
+			//			yield return new WaitForSeconds(rndTmps);
+			if(goBubble.activeSelf){
+				goBubble.SetActive (false);
+			}else{
+				goBubble.SetActive (true);
+			}
+
+			yield return new WaitForSeconds(rndTmps);
+		}
+
+
+	}
 
 }
