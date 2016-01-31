@@ -18,6 +18,8 @@ public class VillagesManager : MonoBehaviour
 
     public List<GameObject> Villages;
 
+    public List<GameObject> UnlockableVillages = new List<GameObject>();
+
 	void Start ()
     {
 	
@@ -28,6 +30,35 @@ public class VillagesManager : MonoBehaviour
 	void Update ()
     {
         float dt = Time.deltaTime * editor;
+
+        if (UnlockableVillages.Count > 0)
+        {
+            int miner = 0;
+            int intel = 0;
+
+            foreach (GameObject village in Villages)
+            {
+                miner += village.GetComponent<Village>().minerals;
+                intel += village.GetComponent<Village>().intel;
+            }
+
+            if (miner >= 500 && intel >= 200)
+            {
+                Villages.Add(UnlockableVillages[0]);
+                UnlockableVillages[0].SetActive(true);
+                UnlockableVillages.Remove(UnlockableVillages[0]);
+
+                Villages[0].GetComponent<Village>().minerals -= 500;
+                Villages[0].GetComponent<Village>().intel -= 200;
+            }
+
+            if (miner >= 1000 && intel >= 400)
+            {
+                Villages.Add(UnlockableVillages[0]);
+                UnlockableVillages[0].SetActive(true);
+                UnlockableVillages.Remove(UnlockableVillages[0]);
+            }
+        }
 
         if (numberOfVillages == 1)
             GameController.Instance.MaxActionPoints = 10;
