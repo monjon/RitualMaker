@@ -28,12 +28,14 @@ public class UIPopupPowerList : UIPopUp {
 	public void OpenPopUp(){
 		base.OpenPopUp();
 
-		if(!Application.isPlaying){
+		if(Application.isPlaying){
 
 			if(this.PowerWheelBase != null){
 
 				Vector3 pos = new Vector3(Mathf.Clamp(Input.mousePosition.x, Camera.main.pixelWidth *this.xWheelPos, Camera.main.pixelWidth*(1f-this.xWheelPos)),
 					Mathf.Clamp(Input.mousePosition.y,Camera.main.pixelHeight *this.yWheelPos, Camera.main.pixelHeight*(1f-this.yWheelPos)), 0f);
+
+				Debug.Log("UIPopupPowerList.OpenPopUp - pos = "+pos+", Input mouse "+Input.mousePosition+", = logique imparable dans ton cul, crève");
 
 				this.PowerWheelBase.anchoredPosition3D = pos;
 
