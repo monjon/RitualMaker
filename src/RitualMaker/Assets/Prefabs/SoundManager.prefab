@@ -55,6 +55,12 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 62f1920aa2f301541b8d538fc425484b, type: 3}
   VillagerScream:
   - {fileID: 8300000, guid: e47e50e6dbebcce4eb6ddededce4ca05, type: 3}
+  GoatScream:
+  - {fileID: 8300000, guid: 58100a4c77ba7074ca1ae1074da01eb9, type: 3}
+  Woodcutter:
+  - {fileID: 8300000, guid: 1311fa87971548c4d8e16ecb5704ef7f, type: 3}
+  Anvil:
+  - {fileID: 8300000, guid: 7ae9190e94bfbe5419fc6bbfcd99f5bb, type: 3}
   WinGame: []
   MusicVolumeWhileJinglePlay: 0
   MenuMusic: {fileID: 0}

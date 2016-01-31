@@ -41,6 +41,11 @@ public class SoundManager : MonoBehaviour
 
 	public List<AudioClip> VillagerScream = new List<AudioClip>();
 
+	[Header("LocalizedSound")]
+	public List<AudioClip> GoatScream = new List<AudioClip>();
+	public List<AudioClip> Woodcutter = new List<AudioClip>();
+	public List<AudioClip> Anvil = new List<AudioClip>();
+
     [Header("Jingles")]
     public List<AudioClip> WinGame = new List<AudioClip>();
 
@@ -513,6 +518,7 @@ public class SoundManager : MonoBehaviour
 	}
 
 
+
     #endregion
 
     #region Jingles
@@ -538,5 +544,26 @@ public class SoundManager : MonoBehaviour
 
     #endregion
 
+	#region GetSound
+
+	public AudioClip GetGoatSound(){
+
+		return this.GoatScream[Random.Range(0, this.GoatScream.Count-1)];
+
+	}
+
+	public AudioClip GetAnvilSound(){
+
+		return this.Anvil[Random.Range(0, this.Anvil.Count-1)];
+
+	}
+
+	public AudioClip GetWoodcutter(){
+
+		return this.Woodcutter[Random.Range(0, this.Woodcutter.Count-1)];
+
+	}
+
+	#endregion
 
 }
