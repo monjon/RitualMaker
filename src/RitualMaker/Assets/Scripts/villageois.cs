@@ -27,6 +27,7 @@ public class villageois : MonoBehaviour
     private float variantX = 0.5f;
     private float variantY = 0.5f;
     private float faith = 0.0f;
+    public bool boosted = false;
 
     private Dictionary<int, int> chanceToPray = new Dictionary<int, int>();
 
@@ -299,11 +300,11 @@ public class villageois : MonoBehaviour
         switch (pState)
         {
             case playerState.isGoingToWork:
-                speed = 1;
                 destination = villageToWorkplace[i];
 				
                 if (transform.position == villageToWorkplace[villageToWorkplace.Count - 1])
                 {
+                    speed = 1;
                     pState = playerState.isWorking;
                 }
                 else if (transform.position == villageToWorkplace[i])
@@ -316,6 +317,7 @@ public class villageois : MonoBehaviour
                 destination = villageToWorkplace[i];
                 if (transform.position == villageToWorkplace[0])
                 {
+                    speed = 1;
                     pState = playerState.isGoingToWork;
                     if (job == "Farmer" || job == "Fisher")
                         Village.GetComponent<Village>().food += food;
@@ -378,6 +380,8 @@ public class villageois : MonoBehaviour
                     if (wakeUp)
                     {
                         UpdateWakeUp();
+                        boosted = false;
+                        maxFood = 10;
                     }
 
                     destination = new Vector3(villageToWorkplace[0].x + variantX, villageToWorkplace[0].y + variantY, 0);
