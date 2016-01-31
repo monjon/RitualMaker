@@ -82,7 +82,7 @@ public class Village : MonoBehaviour
             }
         }
         Debug.Log(dwellersWithRituals.Count);
-        if (dwellersWithRituals.Count < 0)
+        if (dwellersWithRituals.Count <= 0)
             return;
         GameObject selectedDweller = dwellersWithRituals[Random.Range(0, dwellersWithRituals.Count)];
 
