@@ -53,6 +53,8 @@ public class GameController : MonoBehaviour {
     [HideInInspector]
     public int MaxActionPoints = 10;
 
+	public Sprite[] bubbles;
+
 	[Header("GodPowers")]
 	public List<GodPower> GodPowersPrefab = new List<GodPower>();
 
