@@ -15,6 +15,12 @@ public class UIPopupPowerList : UIPopUp {
 	[Range(0f, 0.5f)]
 	public float yWheelPos = 0.25f;
 
+	[Header("Power Button")]
+	public Button ButtonFire;
+	public Button ButtonLightning;
+	public Button ButtonBoost;
+	public Button ButtonHeal;
+
 	// Methods
 	//
 
@@ -22,12 +28,14 @@ public class UIPopupPowerList : UIPopUp {
 	public void OpenPopUp(){
 		base.OpenPopUp();
 
-		if(!Application.isPlaying){
+		if(Application.isPlaying){
 
 			if(this.PowerWheelBase != null){
 
 				Vector3 pos = new Vector3(Mathf.Clamp(Input.mousePosition.x, Camera.main.pixelWidth *this.xWheelPos, Camera.main.pixelWidth*(1f-this.xWheelPos)),
 					Mathf.Clamp(Input.mousePosition.y,Camera.main.pixelHeight *this.yWheelPos, Camera.main.pixelHeight*(1f-this.yWheelPos)), 0f);
+
+				Debug.Log("UIPopupPowerList.OpenPopUp - pos = "+pos+", Input mouse "+Input.mousePosition+", = logique imparable dans ton cul, crève");
 
 				this.PowerWheelBase.anchoredPosition3D = pos;
 
@@ -45,6 +53,26 @@ public class UIPopupPowerList : UIPopUp {
 
 			GameController.Instance.ActivatePower(powerID);
 			this.ClosePopUp();
+		}
+
+	}
+
+	public void Update(){
+
+		if(Application.isPlaying && GameController.Instance != null){
+
+			// Actualize the button status according to cooldowns
+
+			this.ButtonFire.interactable = !GameController.Instance.GetPowerByID("Fire").IsOnCooldown;
+			this.ButtonLightning.interactable = !GameController.Instance.GetPowerByID("Lightning").IsOnCooldown;
+			this.ButtonBoost.interactable = !GameController.Instance.GetPowerByID("Boost").IsOnCooldown;
+			//this.ButtonHeal.interactable = !GameController.Instance.GetPowerByID("Heal").IsOnCooldown;
+
+			this.ButtonFire.GetComponent<Image>().fillAmount = GameController.Instance.GetPowerByID("Fire").CooldownRate;
+			this.ButtonLightning.GetComponent<Image>().fillAmount = GameController.Instance.GetPowerByID("Lightning").CooldownRate;
+			this.ButtonBoost.GetComponent<Image>().fillAmount = GameController.Instance.GetPowerByID("Boost").CooldownRate;
+			//this.ButtonHeal.GetComponent<Image>().fillAmount = GameController.Instance.GetPowerByID("Heal").CooldownRate;
+
 		}
 
 	}

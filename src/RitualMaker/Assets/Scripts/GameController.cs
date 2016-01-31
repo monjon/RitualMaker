@@ -47,11 +47,30 @@ public class GameController : MonoBehaviour {
 	public GameObject HealParticle;
 
 	[Header("GodPowers")]
-	public List<GodPower> GodPowers = new List<GodPower>();
+	public List<GodPower> GodPowersPrefab = new List<GodPower>();
+
+	private List<GodPower> godPowers = new List<GodPower>();
 
 	// Methods
 	//
-	
+
+	public void Start(){
+
+		foreach(GodPower gp in this.GodPowersPrefab){
+
+			if(gp != null){
+
+				GodPower instance = GameObject.Instantiate(gp);
+				instance.transform.position = Vector3.zero;
+				instance.transform.SetParent(this.transform);
+				this.godPowers.Add(instance);
+
+			}
+
+		}
+
+	}
+
 	// Update is called once per frame
 	void Update () {
 
@@ -106,6 +125,10 @@ public class GameController : MonoBehaviour {
 				if(RitualManager.Instance != null){
 					Debug.Log("GameController.Update - Power activated - range : "+range+", mousePos : "+mousePos+", typePower : "+this.TypeOfPower);
 					RitualManager.Instance.CreateRitual(new Vector2(mousePos.x, mousePos.y) , range, this.TypeOfPower, this.GetPowerByID(this.TypeOfPower).FearLove);
+
+					// Put the power on cd
+					this.GetPowerByID(this.TypeOfPower).UsePower();
+
 				}
 
 			}
@@ -131,7 +154,7 @@ public class GameController : MonoBehaviour {
 
 	public GodPower GetPowerByID(string powerID){
 
-		foreach(GodPower gp in this.GodPowers){
+		foreach(GodPower gp in this.godPowers){
 			if(gp.PowerID == powerID){
 				return gp;
 			}

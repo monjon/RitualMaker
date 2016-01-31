@@ -40,7 +40,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 120296}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -72.29819, y: -73.214676, z: 0}
+  m_LocalPosition: {x: -39.680725, y: -22.18759, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 482486}
@@ -119,8 +119,8 @@ MonoBehaviour:
   LastUIPopup: {fileID: 0}
   CurrentDialog: {fileID: 0}
   LastUIDialog: {fileID: 0}
-  StartingUIScreenID: Title
-  TitleScreenID: Title
+  StartingUIScreenID: InGame
+  TitleScreenID: InGame
   EditorAutoScreenChange: 1
 --- !u!114 &11471076
 MonoBehaviour:
