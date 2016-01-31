@@ -111,6 +111,7 @@ public class GameController : MonoBehaviour {
 					GameObject goLightning = (GameObject) GameObject.Instantiate (LightningParticle, mousePos, Quaternion.identity);
 					Destroy (goLightning, 2);
 					range = this.GetPowerByID("Lightning").Range;
+                    mousePos.y -= 7.3f;
 					break;
 				case "Boost":
 					GameObject goBoost = (GameObject) GameObject.Instantiate (BoostParticle, mousePos, Quaternion.identity);

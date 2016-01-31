@@ -175,9 +175,6 @@ public class villageois : MonoBehaviour
         if (pState != playerState.isResting)
             pState = playerState.isGoingBackHome;
         speed *= 2;
-        --i;
-        if (i < 0)
-            i = 0;
     }
 
     public void WakeUp()
@@ -288,10 +285,11 @@ public class villageois : MonoBehaviour
                 }
                 else if (transform.position == villageToWorkplace[i])
                     ++i;
-                break;
+                if (i >= villageToWorkplace.Count)
+                    i = villageToWorkplace.Count - 1;
+                    break;
 
             case playerState.isGoingBackHome:
-                destination = villageToWorkplace[i];
                 if (transform.position == villageToWorkplace[0])
                 {
                     pState = playerState.isGoingToWork;
@@ -309,7 +307,10 @@ public class villageois : MonoBehaviour
                     food = 0;
                 }
                 else if (transform.position == villageToWorkplace[i])
+                {
                     --i;
+                    destination = villageToWorkplace[i];
+                }
                 break;
 
             case playerState.isWorking:
