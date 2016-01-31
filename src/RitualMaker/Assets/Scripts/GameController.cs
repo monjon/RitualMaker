@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -83,7 +83,7 @@ public class GameController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		// Cooldown for power activated (TMP used for UI)
-		if(!this.PowerIsActivated)
+		if(!this.PowerIsActivated && this.ActionPoints > 0)
         {
 			this.timerPowerUsed -= Time.deltaTime;
 		}
@@ -105,6 +105,12 @@ public class GameController : MonoBehaviour {
 					GameObject go = (GameObject) GameObject.Instantiate (FireParticle, mousePos, Quaternion.identity);
 					Destroy (go, 2);
 					range = this.GetPowerByID("Fire").Range;
+
+					// Play the fire spell sound
+					if(SoundManager.Instance != null){
+						SoundManager.Instance.PlayPowerFire();
+					}
+
 					break;
 				case "Lightning":
 					Debug.Log ("Lightning power displayed");
@@ -114,16 +120,34 @@ public class GameController : MonoBehaviour {
 					Destroy (goLightning, 2);
 					range = this.GetPowerByID("Lightning").Range;
                     mousePos.y -= 7.3f;
+
+					// Play the lightning spell sound
+					if(SoundManager.Instance != null){
+						SoundManager.Instance.PlayPowerLightning();
+					}
+
 					break;
 				case "Boost":
 					GameObject goBoost = (GameObject) GameObject.Instantiate (BoostParticle, mousePos, Quaternion.identity);
 					Destroy (goBoost, 2);
 					range = this.GetPowerByID("Boost").Range;
+
+					// Play the boost spell sound
+					if(SoundManager.Instance != null){
+						SoundManager.Instance.PlayPowerBoost();
+					}
+
 					break;
 				case "Heal":
 					GameObject goHeal = (GameObject)GameObject.Instantiate (HealParticle);
 					goHeal.transform.position = mousePos;
 					Destroy (goHeal, 2);
+
+					// Play the heal spell sound
+					if(SoundManager.Instance != null){
+						SoundManager.Instance.PlayPowerHeal();
+					}
+
 					break;
 				default:
 					break;
