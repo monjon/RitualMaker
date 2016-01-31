@@ -46,7 +46,7 @@ public class GameController : MonoBehaviour {
 	public GameObject BoostParticle;
 	public GameObject HealParticle;
 
-    [HideInInspector]
+   // [HideInInspector]
     public int ActionPoints = 3;
     [HideInInspector]
     public int TotalActionPointsUsed = 0;
@@ -81,7 +81,8 @@ public class GameController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		// Cooldown for power activated (TMP used for UI)
-		if(!this.PowerIsActivated){
+		if(!this.PowerIsActivated && this.ActionPoints > 0)
+        {
 			this.timerPowerUsed -= Time.deltaTime;
 		}
 

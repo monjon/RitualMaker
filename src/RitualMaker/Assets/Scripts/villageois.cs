@@ -339,7 +339,9 @@ public class villageois : MonoBehaviour
                     pState = playerState.isSleeping;
                 }
                 else if (transform.position == villageToWorkplace[i])
+                {
                     --i;
+                }
                 break;
 
             case playerState.isSleeping:
