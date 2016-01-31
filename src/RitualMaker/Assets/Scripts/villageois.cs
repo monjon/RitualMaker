@@ -7,11 +7,13 @@ public class villageois : MonoBehaviour
     private Vector3 destination;
     private List<Vector3> villageToWorkplace = new List<Vector3>();
 	private Animator animator;
+	private GameObject goBubble;
 
     public float speed;
     public float collectTime = 10f;
 
     public GameObject Village;
+	public GameObject Bubble;
 
     public int maxFood = 10;
     public int food = 0;
@@ -53,6 +55,7 @@ public class villageois : MonoBehaviour
 
     void SetPathPoints()
     {
+		
         job = Village.GetComponent<Village>().UnlockedJobs[Random.Range(0, Village.GetComponent<Village>().UnlockedJobs.Count)];
 
         villageToWorkplace.Clear();
@@ -131,6 +134,9 @@ public class villageois : MonoBehaviour
         {
             villageToWorkplace.Add(pos.transform.position);
         }
+
+//		bubbleScript.ChangeSprite (job);
+			
     }
 
     void SetKeywords()
@@ -150,9 +156,9 @@ public class villageois : MonoBehaviour
         chanceToPray[-3] = 100;
         chanceToPray[-2] = 80;
         chanceToPray[-1] = 60;
-        chanceToPray[0] = 50;
-        chanceToPray[1] = 40;
-        chanceToPray[2] = 20;
+        chanceToPray[0] = 30;
+        chanceToPray[1] = 25;
+        chanceToPray[2] = 15;
         chanceToPray[3] = 0;
     }
 
@@ -162,6 +168,11 @@ public class villageois : MonoBehaviour
         pState = playerState.isGoingToWork;
 
 		animator = GetComponent<Animator> ();
+		goBubble = (GameObject) GameObject.Instantiate (Bubble);
+		goBubble.transform.parent = this.transform;
+		goBubble.transform.localPosition = new Vector3 (0.5f, 1f, 0);
+
+		StartCoroutine (ShowHideBubble ());
 
         SetKeywords();
 
@@ -172,14 +183,16 @@ public class villageois : MonoBehaviour
 
     public void Fear()
     {
-        pState = playerState.isGoingBackHome;
+        if (pState == playerState.isGoingToWork && i != 0)
+            i--;
+        if (pState != playerState.isResting)
+            pState = playerState.isGoingBackHome;
         speed *= 2;
-        --i;
-        if (i < 0)
-            i = 0;
     }
 
-    public void WakeUp()
+    bool wakeUp = false;
+
+    public void UpdateWakeUp()
     {
         pState = playerState.isGoingToWork;
 
@@ -231,7 +244,13 @@ public class villageois : MonoBehaviour
         {
 
         }
+        wakeUp = false;
 
+    }
+
+    public void WakeUp()
+    {
+        wakeUp = true;
     }
 
     public void GetsSick()
@@ -276,18 +295,22 @@ public class villageois : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+		//goBubble.transform.position = new Vector3 (gameObject.transform.position.x + 1f, gameObject.transform.position.y + 1.2f, 0);
         switch (pState)
         {
             case playerState.isGoingToWork:
                 speed = 1;
                 destination = villageToWorkplace[i];
+				
                 if (transform.position == villageToWorkplace[villageToWorkplace.Count - 1])
                 {
                     pState = playerState.isWorking;
                 }
                 else if (transform.position == villageToWorkplace[i])
                     ++i;
-                break;
+                if (i >= villageToWorkplace.Count)
+                    i = villageToWorkplace.Count - 1;
+                    break;
 
             case playerState.isGoingBackHome:
                 destination = villageToWorkplace[i];
@@ -308,7 +331,9 @@ public class villageois : MonoBehaviour
                     food = 0;
                 }
                 else if (transform.position == villageToWorkplace[i])
+                {
                     --i;
+                }
                 break;
 
             case playerState.isWorking:
@@ -339,7 +364,9 @@ public class villageois : MonoBehaviour
                     pState = playerState.isSleeping;
                 }
                 else if (transform.position == villageToWorkplace[i])
+                {
                     --i;
+                }
                 break;
 
             case playerState.isSleeping:
@@ -347,6 +374,12 @@ public class villageois : MonoBehaviour
                 {
                     variantX = Random.value - 0.5f;
                     variantY = Random.value - 0.5f;
+
+                    if (wakeUp)
+                    {
+                        UpdateWakeUp();
+                    }
+
                     destination = new Vector3(villageToWorkplace[0].x + variantX, villageToWorkplace[0].y + variantY, 0);
                 }
                 break;
@@ -355,6 +388,33 @@ public class villageois : MonoBehaviour
                 break;
 
         }
+
+		SpriteRenderer spTmp = goBubble.GetComponent<SpriteRenderer> ();
+		switch(job){
+			case "Prayer":
+				spTmp.sprite = GameController.Instance.bubbles [0];
+				break;
+			case "Farmer":
+				spTmp.sprite = GameController.Instance.bubbles [1];
+				break;
+			case "Fisher":
+				spTmp.sprite = GameController.Instance.bubbles [2];
+				break;
+			case "Hunter":
+				spTmp.sprite = GameController.Instance.bubbles [3];
+				break;
+			case "Miner":
+				spTmp.sprite = GameController.Instance.bubbles [4];
+				break;
+			case "Blacksmith":
+				spTmp.sprite = GameController.Instance.bubbles [5];
+				break;
+			default:
+				break;
+		}
+			
+
+
     }
 
     void FixedUpdate()
@@ -404,5 +464,21 @@ public class villageois : MonoBehaviour
         }
 
     }
+
+	IEnumerator ShowHideBubble() {
+		while (true) {
+			var rndTmps = Random.Range (2.0F, 10.0F);
+			//			yield return new WaitForSeconds(rndTmps);
+			if(goBubble.activeSelf){
+				goBubble.SetActive (false);
+			}else{
+				goBubble.SetActive (true);
+			}
+
+			yield return new WaitForSeconds(rndTmps);
+		}
+
+
+	}
 
 }

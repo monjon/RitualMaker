@@ -46,12 +46,14 @@ public class GameController : MonoBehaviour {
 	public GameObject BoostParticle;
 	public GameObject HealParticle;
 
-    [HideInInspector]
+   // [HideInInspector]
     public int ActionPoints = 3;
     [HideInInspector]
     public int TotalActionPointsUsed = 0;
     [HideInInspector]
     public int MaxActionPoints = 10;
+
+	public Sprite[] bubbles;
 
 	[Header("GodPowers")]
 	public List<GodPower> GodPowersPrefab = new List<GodPower>();
@@ -81,7 +83,8 @@ public class GameController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		// Cooldown for power activated (TMP used for UI)
-		if(!this.PowerIsActivated){
+		if(!this.PowerIsActivated)
+        {
 			this.timerPowerUsed -= Time.deltaTime;
 		}
 
@@ -110,6 +113,7 @@ public class GameController : MonoBehaviour {
 					GameObject goLightning = (GameObject) GameObject.Instantiate (LightningParticle, mousePos, Quaternion.identity);
 					Destroy (goLightning, 2);
 					range = this.GetPowerByID("Lightning").Range;
+                    mousePos.y -= 7.3f;
 					break;
 				case "Boost":
 					GameObject goBoost = (GameObject) GameObject.Instantiate (BoostParticle, mousePos, Quaternion.identity);
