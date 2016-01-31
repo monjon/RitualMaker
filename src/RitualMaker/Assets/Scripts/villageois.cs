@@ -13,15 +13,18 @@ public class villageois : MonoBehaviour {
 
     public int maxFood = 10;
     public int food = 0;
-    public string sex;
+    public string sex = "Male";
     public string job;
-    public string health;
-    public string age;
+    public string health = "Healthy";
+    public string age = "Young";
+    int cycles = 0;
     private float timer = 0;
     private int i = 0;
     private float variantX = 0.5f;
     private float variantY = 0.5f;
     private float faith = 0.0f;
+
+    int cyclesSick = 0;
 
     [HideInInspector]
     public Dictionary<string, int> Ritual = new Dictionary<string,int>();
@@ -62,12 +65,25 @@ public class villageois : MonoBehaviour {
             }
         }
 
+        KeyWords k = GetComponent<KeyWords>();
+
+        k.KeyWordsList.Clear();
+
+        k.KeyWordsList.Add(job);
+        k.KeyWordsList.Add(health);
+        k.KeyWordsList.Add(age);
+        k.KeyWordsList.Add(sex);
+
         Village.GetComponent<Village>().dwellers.Add(this.gameObject);
 	}
 
     public void Fear()
     {
-        Debug.Log("HUUUH");
+        pState = playerState.isGoingBackHome;
+        speed *= 2;
+        --i;
+        if (i < 0)
+            i = 0;
     }
 
     public void WakeUp()
@@ -76,11 +92,61 @@ public class villageois : MonoBehaviour {
             pState = playerState.isGoingToWork;
         else
             pState = playerState.isGoingToPray;
+
+        ++cycles;
+
+        if (cycles == 10)
+        {
+            age = "Adult";
+        }
+        if (cycles == 23)
+        {
+            age = "Elder";
+        }
+        if (cycles >= 35)
+        {
+            // Dead;
+            Die();
+        }
+
+        if (health == "Sick")
+        {
+            ++cyclesSick;
+        }
+        else
+        {
+            cyclesSick = 0;
+        }
+
+        if (cyclesSick > 5)
+        {
+            // Dead;
+            Die();
+        }
+
+        KeyWords k = GetComponent<KeyWords>();
+
+        k.KeyWordsList.Clear();
+
+        k.KeyWordsList.Add(job);
+        k.KeyWordsList.Add(health);
+        k.KeyWordsList.Add(age);
+        k.KeyWordsList.Add(sex);
+    }
+
+    public void GetsSick()
+    {
+        health = "Sick";
     }
 
     public void EndOfJobCycle()
     {
         pState = playerState.isResting;
+    }
+
+    public void Die()
+    {
+        Destroy(this.gameObject);
     }
 
     void moove(float coeff)
@@ -94,6 +160,7 @@ public class villageois : MonoBehaviour {
         switch (pState)
         {
             case playerState.isGoingToWork:
+                speed = 1;
                 destination = villageToWorkplace[i];
                 if (transform.position == villageToWorkplace[villageToWorkplace.Count -1])
                 {
@@ -190,38 +257,40 @@ public class villageois : MonoBehaviour {
 
     void FixedUpdate()
     {
+        float coeff = 1.0f * (health == "Sick" ? 0.5f : 1.0f);
+
         switch (pState)
         {
             case playerState.isGoingToWork:
-                moove(1);
+                moove(coeff);
                 break;
 
             case playerState.isGoingBackHome:
-                moove(1);
+                moove(coeff);
                 break;
 
             case playerState.isResting:
-                moove(1);
+                moove(coeff);
                 break;
 
             case playerState.isWorking:
-                moove(1);
+                moove(coeff);
                 break;
 
             case playerState.isSleeping:
-                moove(1);
+                moove(coeff);
                 break;
 
             case playerState.isGoingToPray:
-                moove(1);
+                moove(coeff);
                 break;
 
             case playerState.isPraying:
-                moove(1);
+                moove(coeff);
                 break;
 
             case playerState.isBackFromRituals:
-                moove(1);
+                moove(coeff);
                 break;
 
             default:

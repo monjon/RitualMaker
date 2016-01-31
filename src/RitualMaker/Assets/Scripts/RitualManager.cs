@@ -60,24 +60,40 @@ public class RitualManager : MonoBehaviour
 
                 //// If the touched villager has a keywords component on him (he should !)
                 //if(touched.GetComponent<KeyWords>() != null){
-                words.AddRange(touched.GetComponent<KeyWords>().KeyWordsList);
+                if (touched.GetComponent<KeyWords>())
+                    words.AddRange(touched.GetComponent<KeyWords>().KeyWordsList);
                 //}
             }
 
-            for (int i = 0; i < words.Count; i++)
-            {
-                string temp = words[i];
-                int randomIndex = Random.Range(i, words.Count);
-                words[i] = words[randomIndex];
-                words[randomIndex] = temp;
-            }
+            //for (int i = 0; i < words.Count; i++)
+            //{
+            //    string temp = words[i];
+            //    int randomIndex = Random.Range(i, words.Count);
+            //    words[i] = words[randomIndex];
+            //    words[randomIndex] = temp;
+            //}
 
             List<string> selectedConditions = new List<string>();
 
-            for (int i = 0; i < 3; ++i)
+            if (words.Count < 3)
             {
-                //selectedConditions.Add(words[i]);
+                foreach (string w in words)
+                    selectedConditions.Add(w);
             }
+            else
+            {
+                for (int i = 0; i < 3; ++i)
+                {
+                    int r = Random.Range(0, words.Count);
+                    selectedConditions.Add(words[r]);
+                    words.Remove(words[r]);
+                }
+            }
+
+            //for (int i = 0; i < 3 && i < words.Count - 1; ++i)
+            //{
+            //    selectedConditions.Add(words[i]);
+            //}
 
             foreach (RaycastHit2D hit in hits)
             {
@@ -86,6 +102,8 @@ public class RitualManager : MonoBehaviour
                 if (touched.CompareTag("Villager"))
                 {
                     foreach (string condition in selectedConditions)
+                    {
+                        //Debug.Log("Condition : " + condition);
                         if (touched.GetComponent<villageois>().Ritual.ContainsKey(condition))
                         {
                             touched.GetComponent<villageois>().Ritual[condition] += power;
@@ -98,6 +116,7 @@ public class RitualManager : MonoBehaviour
                         {
                             touched.GetComponent<villageois>().Ritual[condition] = power;
                         }
+                    }
                     if (power < 0)
                         touched.GetComponent<villageois>().Fear();
                 }

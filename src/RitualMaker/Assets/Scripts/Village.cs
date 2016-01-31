@@ -67,8 +67,27 @@ public class Village : MonoBehaviour
                 if (r < chancesGettingSick)
                 {
                     // the dweller gets sick.
+                    dweller.GetComponent<villageois>().GetsSick();
                 }
             }
+        }
+
+        // Share rituals;
+        List<GameObject> dwellersWithRituals = new List<GameObject>();
+        foreach (GameObject dweller in dwellers)
+        {
+            if (dweller.GetComponent<villageois>().Ritual.Keys.Count > 0)
+            {
+                dwellersWithRituals.Add(dweller);
+            }
+        }
+        Debug.Log(dwellersWithRituals.Count);
+        GameObject selectedDweller = dwellersWithRituals[Random.Range(0, dwellersWithRituals.Count)];
+
+        foreach (string key in selectedDweller.GetComponent<villageois>().Ritual.Keys)
+        {
+            Debug.Log("Condition : " + key);
+            Debug.Log("Value : " + selectedDweller.GetComponent<villageois>().Ritual[key]);
         }
     }
 
