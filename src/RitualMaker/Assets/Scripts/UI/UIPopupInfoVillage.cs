@@ -12,7 +12,7 @@ public class UIPopupInfoVillage : UIPopUp {
 	public Text MineralsCount;
 	public Text IntelCount;
 	public Text PopulationCount;
-
+	public Text FaithCount;
 
 
 	// Methods
@@ -25,6 +25,8 @@ public class UIPopupInfoVillage : UIPopUp {
 			this.FoodCount.text = v.food.ToString();
 			this.MineralsCount.text = v.minerals.ToString();
 			this.IntelCount.text = v.intel.ToString();
+			this.PopulationCount.text = v.dwellers.Count.ToString();
+			this.FaithCount.text = v.faith.ToString();
 
 		}
 
