@@ -183,6 +183,8 @@ public class villageois : MonoBehaviour
 
     public void Fear()
     {
+        if (pState == playerState.isGoingToWork && i != 0)
+            i--;
         if (pState != playerState.isResting)
             pState = playerState.isGoingBackHome;
         speed *= 2;
@@ -311,6 +313,7 @@ public class villageois : MonoBehaviour
                     break;
 
             case playerState.isGoingBackHome:
+                destination = villageToWorkplace[i];
                 if (transform.position == villageToWorkplace[0])
                 {
                     pState = playerState.isGoingToWork;
@@ -330,7 +333,6 @@ public class villageois : MonoBehaviour
                 else if (transform.position == villageToWorkplace[i])
                 {
                     --i;
-                    destination = villageToWorkplace[i];
                 }
                 break;
 
