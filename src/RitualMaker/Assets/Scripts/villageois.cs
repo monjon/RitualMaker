@@ -40,9 +40,6 @@ public class villageois : MonoBehaviour
         isGoingBackHome,
         isResting,
         isSleeping,
-        isGoingToPray,
-        isPraying,
-        isBackFromRituals,
     }
 
     private playerState pState;
@@ -296,10 +293,7 @@ public class villageois : MonoBehaviour
                 destination = villageToWorkplace[i];
                 if (transform.position == villageToWorkplace[0])
                 {
-                    if (Random.value >= faith)
-                        pState = playerState.isGoingToWork;
-                    else
-                        pState = playerState.isGoingToPray;
+                    pState = playerState.isGoingToWork;
                     if (job == "Farmer" || job == "Fisher")
                         Village.GetComponent<Village>().food += food;
                     else if (job == "Hunter")
@@ -319,13 +313,11 @@ public class villageois : MonoBehaviour
 
             case playerState.isWorking:
                 timer = timer + Time.deltaTime;
-                destination = new Vector3(villageToWorkplace[villageToWorkplace.Count - 1].x + variantX, villageToWorkplace[villageToWorkplace.Count - 1].y + variantY, 0);
                 if (food < maxFood && timer >= collectTime)
                 {
-                    if (food % 2 == 0)
-                        variantX = variantX * -1;
-                    else if (food % 3 == 0)
-                        variantY = variantY * -1;
+                    variantX = Random.value - 0.5f;
+                    variantY = Random.value - 0.5f;
+                    destination = new Vector3(villageToWorkplace[villageToWorkplace.Count - 1].x + variantX, villageToWorkplace[villageToWorkplace.Count - 1].y + variantY, 0);
                     timer = 0f;
                     food++;
                 }
@@ -359,28 +351,6 @@ public class villageois : MonoBehaviour
                 }
                 break;
 
-            case playerState.isGoingToPray:
-                destination = new Vector3(10, 10, 0);
-                if (transform.position == destination)
-                {
-                    pState = playerState.isPraying;
-                }
-                break;
-
-            case playerState.isPraying:
-                break;
-
-            case playerState.isBackFromRituals:
-                destination = villageToWorkplace[0];
-                if (transform.position == destination)
-                {
-                    if (Random.value >= faith)
-                        pState = playerState.isGoingToWork;
-                    else
-                        pState = playerState.isGoingToPray;
-                }
-                break;
-
             default:
                 break;
 
@@ -410,18 +380,6 @@ public class villageois : MonoBehaviour
                 break;
 
             case playerState.isSleeping:
-                moove(coeff);
-                break;
-
-            case playerState.isGoingToPray:
-                moove(coeff);
-                break;
-
-            case playerState.isPraying:
-                moove(coeff);
-                break;
-
-            case playerState.isBackFromRituals:
                 moove(coeff);
                 break;
 
