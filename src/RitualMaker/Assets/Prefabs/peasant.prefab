@@ -77,7 +77,7 @@ MonoBehaviour:
   speed: 1
   collectTime: 1
   Village: {fileID: 0}
-  Bubble: {fileID: 137192, guid: 3002c9d4098e74a9e97e479329a73f49, type: 2}
+  Bubble: {fileID: 173572, guid: 1ba52418d27b14c60afb56ffbfecad9f, type: 2}
   maxFood: 10
   food: 0
   sex: 
@@ -140,7 +140,20 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: Bubble
       value: 
-      objectReference: {fileID: 137192, guid: 3002c9d4098e74a9e97e479329a73f49, type: 2}
+      objectReference: {fileID: 173572, guid: 1ba52418d27b14c60afb56ffbfecad9f, type: 2}
+    - target: {fileID: 0}
+      propertyPath: bubbleScript
+      value: 
+      objectReference: {fileID: 11412314, guid: 3002c9d4098e74a9e97e479329a73f49,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: Icon
+      value: 
+      objectReference: {fileID: 125384, guid: 6cdcba12b8ae049e99ab9cf89bf9fb8b, type: 2}
+    - target: {fileID: 0}
+      propertyPath: FishingIcon
+      value: 
+      objectReference: {fileID: 110926, guid: 428fef67786804783997480847f7d1a4, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 153878}

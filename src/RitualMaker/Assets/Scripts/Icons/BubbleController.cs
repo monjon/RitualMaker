@@ -20,19 +20,29 @@ public class BubbleController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		switch (VillageoisJob) {
-		case "Farmer":
-			sp.sprite = FarmIcon.GetComponent<SpriteRenderer>().sprite;
-			break;
-		case "Fisher":
-			sp.sprite = FishingIcon.GetComponent<SpriteRenderer> ().sprite;
-			break;
-		default:
-			break;
-		}
+//		switch (VillageoisJob) {
+//		case "Farmer":
+//			sp.sprite = FarmIcon.GetComponent<SpriteRenderer>().sprite;
+//			break;
+//		case "Fisher":
+//			sp.sprite = FishingIcon.GetComponent<SpriteRenderer> ().sprite;
+//			break;
+//		default:
+//			break;
+//		}
 	}
 
 	public void ChangeSprite(string jobName){
-		Debug.Log (jobName);
+//		Debug.Log (jobName);
+//		switch (jobName) {
+//		case "Farmer":
+//			sp.sprite = FarmIcon.GetComponent<SpriteRenderer>().sprite;
+//			break;
+//		case "Fisher":
+//			sp.sprite = FishingIcon.GetComponent<SpriteRenderer> ().sprite;
+//			break;
+//		default:
+//			break;
+//		}
 	}
 }

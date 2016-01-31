@@ -14,7 +14,8 @@ public class villageois : MonoBehaviour
 
     public GameObject Village;
 	public GameObject Bubble;
-	public BubbleController bubbleScript;
+	[HideInInspector]
+	private BubbleController bubbleScript;
 
     public int maxFood = 10;
     public int food = 0;
@@ -59,6 +60,7 @@ public class villageois : MonoBehaviour
 
     void SetPathPoints()
     {
+		
         job = Village.GetComponent<Village>().UnlockedJobs[Random.Range(0, Village.GetComponent<Village>().UnlockedJobs.Count)];
 
         villageToWorkplace.Clear();
@@ -137,6 +139,8 @@ public class villageois : MonoBehaviour
         {
             villageToWorkplace.Add(pos.transform.position);
         }
+
+//		bubbleScript.ChangeSprite (job);
 			
     }
 
@@ -170,6 +174,9 @@ public class villageois : MonoBehaviour
 
 		animator = GetComponent<Animator> ();
 		goBubble = (GameObject) GameObject.Instantiate (Bubble);
+		goBubble.transform.parent = this.transform;
+		goBubble.transform.localPosition = new Vector3 (0.5f, 1f, 0);
+
 
         SetKeywords();
 
@@ -239,7 +246,7 @@ public class villageois : MonoBehaviour
         {
 
         }
-		var tmpJob = goBubble.GetComponent<ScriptableObject> ();
+
 
     }
 
@@ -287,8 +294,8 @@ public class villageois : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		goBubble.
-		goBubble.transform.position = new Vector3 (gameObject.transform.position.x + 1f, gameObject.transform.position.y + 1.2f, 0);
+
+		//goBubble.transform.position = new Vector3 (gameObject.transform.position.x + 1f, gameObject.transform.position.y + 1.2f, 0);
         switch (pState)
         {
             case playerState.isGoingToWork:
@@ -396,6 +403,33 @@ public class villageois : MonoBehaviour
                 break;
 
         }
+
+		SpriteRenderer spTmp = goBubble.GetComponent<SpriteRenderer> ();
+		switch(job){
+			case "Prayer":
+				spTmp.sprite = GameController.Instance.bubbles [0];
+				break;
+			case "Farmer":
+				spTmp.sprite = GameController.Instance.bubbles [1];
+				break;
+			case "Fisher":
+				spTmp.sprite = GameController.Instance.bubbles [2];
+				break;
+			case "Hunter":
+				spTmp.sprite = GameController.Instance.bubbles [3];
+				break;
+			case "Miner":
+				spTmp.sprite = GameController.Instance.bubbles [4];
+				break;
+			case "Blacksmith":
+				spTmp.sprite = GameController.Instance.bubbles [5];
+				break;
+			default:
+				break;
+		}
+			
+
+
     }
 
     void FixedUpdate()
