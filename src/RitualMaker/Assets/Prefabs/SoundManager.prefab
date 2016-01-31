@@ -50,14 +50,15 @@ MonoBehaviour:
   PowerLightning:
   - {fileID: 8300000, guid: f49f3e3dcaeeb3c4c96f26b157246d43, type: 3}
   PowerBoost:
-  - {fileID: 8300000, guid: 4611f6a7fb889b64db1dab7e7cb11be8, type: 3}
-  PowerHeal: []
+  - {fileID: 8300000, guid: a46e5459dd3907149a8d09dff9d33123, type: 3}
+  PowerHeal:
+  - {fileID: 8300000, guid: 62f1920aa2f301541b8d538fc425484b, type: 3}
   VillagerScream:
   - {fileID: 8300000, guid: e47e50e6dbebcce4eb6ddededce4ca05, type: 3}
   WinGame: []
   MusicVolumeWhileJinglePlay: 0
   MenuMusic: {fileID: 0}
-  InGameMusic: {fileID: 8300000, guid: 960194db2a227d54397fc87972092c28, type: 3}
+  InGameMusic: {fileID: 8300000, guid: 8741b1e84a8d4584ba5deacbbb591dc0, type: 3}
   PlayerSource: {fileID: 0}
   VillagerSource: {fileID: 0}
   WorldSource: {fileID: 0}

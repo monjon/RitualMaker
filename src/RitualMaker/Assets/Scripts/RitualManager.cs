@@ -103,7 +103,7 @@ public class RitualManager : MonoBehaviour
             }
 
 			// Play the villager fear sound
-			if(SoundManager.Instance != null){
+			if(SoundManager.Instance != null && villagerAfraid){
 				SoundManager.Instance.PlayVillagerScream();
 			}
 
