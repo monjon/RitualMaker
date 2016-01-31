@@ -290,7 +290,9 @@ public class villageois : MonoBehaviour
                 }
                 else if (transform.position == villageToWorkplace[i])
                     ++i;
-                break;
+                if (i >= villageToWorkplace.Count)
+                    i = villageToWorkplace.Count - 1;
+                    break;
 
             case playerState.isGoingBackHome:
                 destination = villageToWorkplace[i];
