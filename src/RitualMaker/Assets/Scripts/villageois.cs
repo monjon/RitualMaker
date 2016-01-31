@@ -156,9 +156,9 @@ public class villageois : MonoBehaviour
         chanceToPray[-3] = 100;
         chanceToPray[-2] = 80;
         chanceToPray[-1] = 60;
-        chanceToPray[0] = 50;
-        chanceToPray[1] = 40;
-        chanceToPray[2] = 20;
+        chanceToPray[0] = 30;
+        chanceToPray[1] = 25;
+        chanceToPray[2] = 15;
         chanceToPray[3] = 0;
     }
 
@@ -187,7 +187,9 @@ public class villageois : MonoBehaviour
         speed *= 2;
     }
 
-    public void WakeUp()
+    bool wakeUp = false;
+
+    public void UpdateWakeUp()
     {
         pState = playerState.isGoingToWork;
 
@@ -239,8 +241,13 @@ public class villageois : MonoBehaviour
         {
 
         }
+        wakeUp = false;
 
+    }
 
+    public void WakeUp()
+    {
+        wakeUp = true;
     }
 
     public void GetsSick()
@@ -285,7 +292,6 @@ public class villageois : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
 		//goBubble.transform.position = new Vector3 (gameObject.transform.position.x + 1f, gameObject.transform.position.y + 1.2f, 0);
         switch (pState)
         {
@@ -365,6 +371,12 @@ public class villageois : MonoBehaviour
                 {
                     variantX = Random.value - 0.5f;
                     variantY = Random.value - 0.5f;
+
+                    if (wakeUp)
+                    {
+                        UpdateWakeUp();
+                    }
+
                     destination = new Vector3(villageToWorkplace[0].x + variantX, villageToWorkplace[0].y + variantY, 0);
                 }
                 break;
