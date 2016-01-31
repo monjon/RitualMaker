@@ -72,6 +72,8 @@ public class RitualManager : MonoBehaviour
                 }
             }
 
+			bool villagerAfraid = false;
+
             foreach (RaycastHit2D hit in hits)
             {
                 GameObject touched = hit.collider.gameObject;
@@ -93,10 +95,17 @@ public class RitualManager : MonoBehaviour
                             touched.GetComponent<villageois>().Ritual[condition] = power;
                         }
                     }
-                    if (power < 0)
+					if (power < 0) {
                         touched.GetComponent<villageois>().Fear();
+						villagerAfraid = true;
+					}
                 }
             }
+
+			// Play the villager fear sound
+			if(SoundManager.Instance != null && villagerAfraid){
+				SoundManager.Instance.PlayVillagerScream();
+			}
 
             --GameController.Instance.ActionPoints;
             ++GameController.Instance.TotalActionPointsUsed;

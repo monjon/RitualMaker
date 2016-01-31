@@ -34,23 +34,15 @@ public class SoundManager : MonoBehaviour
     public List<AudioClip> PopupOpen = new List<AudioClip>();
     public List<AudioClip> PopupClose = new List<AudioClip>();
 
-    public List<AudioClip> LaunchFromPlanet = new List<AudioClip>();
-    public List<AudioClip> ValidationPlanet = new List<AudioClip>();
+	public List<AudioClip> PowerFire = new List<AudioClip>();
+	public List<AudioClip> PowerLightning = new List<AudioClip>();
+	public List<AudioClip> PowerBoost = new List<AudioClip>();
+	public List<AudioClip> PowerHeal = new List<AudioClip>();
 
-    public List<AudioClip> DeathPlayer = new List<AudioClip>();
-    public List<AudioClip> DeathGhost = new List<AudioClip>();
-    [Tooltip("how far can we hear the GhostDeath")]
-    public float GhostDeathRange = 5f;
-
-    public List<AudioClip> RocketSound = new List<AudioClip>();
-
+	public List<AudioClip> VillagerScream = new List<AudioClip>();
 
     [Header("Jingles")]
     public List<AudioClip> WinGame = new List<AudioClip>();
-    public List<AudioClip> LooseGame = new List<AudioClip>();
-
-    public List<AudioClip> BonusUsed = new List<AudioClip>();
-    public List<AudioClip> BuyBack = new List<AudioClip>();
 
     [Tooltip("The music will lower to this volume while a jingle is playing")]
     [Range(0f, 1f)]
@@ -64,7 +56,7 @@ public class SoundManager : MonoBehaviour
     // AudioSource
     [Header("Audio Source")]
     public AudioSource PlayerSource;
-    public AudioSource GhostSource;
+    public AudioSource VillagerSource;
     public AudioSource WorldSource;
     public AudioSource JingleSource;
 
@@ -123,7 +115,7 @@ public class SoundManager : MonoBehaviour
 
             this.PlayerSource = this.gameObject.AddComponent<AudioSource>();
             this.WorldSource = this.gameObject.AddComponent<AudioSource>();
-            this.GhostSource = this.gameObject.AddComponent<AudioSource>();
+            this.VillagerSource = this.gameObject.AddComponent<AudioSource>();
             this.JingleSource = this.gameObject.AddComponent<AudioSource>();
 
             this.MusicSource = this.gameObject.AddComponent<AudioSource>();
@@ -137,6 +129,10 @@ public class SoundManager : MonoBehaviour
             this.isInit = true;
 
         }
+
+		// Start to play the main theme
+		this.PlayInGameMusic();
+
     }
 
     private void searchAudioListener()
@@ -302,7 +298,6 @@ public class SoundManager : MonoBehaviour
 
     public void PlayMenuMusic()
     {
-        this.StopRocketSound();
 
         this.musicPlaying = false;
 
@@ -327,7 +322,6 @@ public class SoundManager : MonoBehaviour
 
     public void PlayInGameMusic()
     {
-        this.StopRocketSound();
 
         this.musicPlaying = false;
 
@@ -381,7 +375,7 @@ public class SoundManager : MonoBehaviour
             //Debug.Log("SoundManager.PlayHeroHit - Hero hit sound");
 
             AudioClip ac = this.ClickMenu[Random.Range(0, this.ClickMenu.Count)];
-            this.GhostSource.PlayOneShot(ac);
+            this.VillagerSource.PlayOneShot(ac);
 
         }
 
@@ -400,7 +394,7 @@ public class SoundManager : MonoBehaviour
             //Debug.Log("SoundManager.PlayHeroHit - Hero hit sound");
 
             AudioClip ac = this.PopupOpen[Random.Range(0, this.PopupOpen.Count)];
-            this.GhostSource.PlayOneShot(ac);
+            this.VillagerSource.PlayOneShot(ac);
 
         }
 
@@ -419,109 +413,104 @@ public class SoundManager : MonoBehaviour
             //Debug.Log("SoundManager.PlayHeroHit - Hero hit sound");
 
             AudioClip ac = this.PopupClose[Random.Range(0, this.PopupClose.Count)];
-            this.GhostSource.PlayOneShot(ac);
+            this.VillagerSource.PlayOneShot(ac);
 
         }
 
     }
 
-    /// <summary>
-    /// Play one launch from planet sound, randomly selected from the list
-    /// </summary>
-    public void PlayLaunchFromPlanet()
-    {
+	/// <summary>
+	/// Play one power fire sound, randomly selected from the list
+	/// </summary>
+	public void PlayPowerFire()
+	{
 
-        // If the hero can play a sound
-        if (this.SoundOn && this.LaunchFromPlanet.Count > 0 && this.audioListener != null)
-        {            
+		// If the hero can play a sound
+		if (this.SoundOn && this.PowerFire.Count > 0 && this.audioListener != null)
+		{
 
-            AudioClip ac = this.LaunchFromPlanet[Random.Range(0, this.LaunchFromPlanet.Count)];
-            this.WorldSource.PlayOneShot(ac);
+			//Debug.Log("SoundManager.PlayHeroHit - Hero hit sound");
 
-        }
+			AudioClip ac = this.PowerFire[Random.Range(0, this.PowerFire.Count)];
+			this.WorldSource.PlayOneShot(ac);
 
-    }
+		}
 
-    /// <summary>
-    /// Play one validation planet sound, randomly selected from the list
-    /// </summary>
-    public void PlayValidationPlanet()
-    {
-        this.StopRocketSound();
+	}
 
-        // If the hero can play a sound
-        if (this.SoundOn && this.ValidationPlanet.Count > 0 && this.audioListener != null)
-        {
+	/// <summary>
+	/// Play one power lightning sound, randomly selected from the list
+	/// </summary>
+	public void PlayPowerLightning()
+	{
 
-            AudioClip ac = this.ValidationPlanet[Random.Range(0, this.ValidationPlanet.Count)];
-            this.WorldSource.PlayOneShot(ac);
+		// If the hero can play a sound
+		if (this.SoundOn && this.PowerLightning.Count > 0 && this.audioListener != null)
+		{
 
-        }
+			//Debug.Log("SoundManager.PlayHeroHit - Hero hit sound");
 
-    }
+			AudioClip ac = this.PowerLightning[Random.Range(0, this.PowerLightning.Count)];
+			this.WorldSource.PlayOneShot(ac);
 
-    /// <summary>
-    /// Play one death player sound, randomly selected from the list
-    /// </summary>
-    public void PlayDeathPlayer()
-    {
+		}
 
-        this.StopRocketSound();
+	}
 
-        // If the hero can play a sound
-        if (this.SoundOn && this.DeathPlayer.Count > 0 && this.audioListener != null)
-        {
+	/// <summary>
+	/// Play one power boost sound, randomly selected from the list
+	/// </summary>
+	public void PlayPowerBoost()
+	{
 
-            AudioClip ac = this.DeathPlayer[Random.Range(0, this.DeathPlayer.Count)];
-            this.PlayerSource.PlayOneShot(ac);
+		// If the hero can play a sound
+		if (this.SoundOn && this.PowerBoost.Count > 0 && this.audioListener != null)
+		{
 
-        }
+			//Debug.Log("SoundManager.PlayHeroHit - Hero hit sound");
 
-    }
+			AudioClip ac = this.PowerBoost[Random.Range(0, this.PowerBoost.Count)];
+			this.WorldSource.PlayOneShot(ac);
 
-    /// <summary>
-    /// Play one death ghost sound, randomly selected from the list
-    /// </summary>
-    public void PlayDeathGhost()
-    {
+		}
 
-        // If the hero can play a sound
-        if (this.SoundOn && this.DeathGhost.Count > 0 && this.audioListener != null)
-        {
+	}
 
-            AudioClip ac = this.DeathGhost[Random.Range(0, this.DeathGhost.Count)];
-            this.GhostSource.PlayOneShot(ac);
+	/// <summary>
+	/// Play one power heal sound, randomly selected from the list
+	/// </summary>
+	public void PlayPowerHeal()
+	{
 
-        }
+		// If the hero can play a sound
+		if (this.SoundOn && this.PowerHeal.Count > 0 && this.audioListener != null)
+		{
 
-    }
+			//Debug.Log("SoundManager.PlayHeroHit - Hero hit sound");
 
-    /// <summary>
-    /// Play one rocket sound, randomly selected from the list. Will loop until the method StopRocketSound is called
-    /// </summary>
-    public void StartRocketSound()
-    {
+			AudioClip ac = this.PowerHeal[Random.Range(0, this.PowerHeal.Count)];
+			this.WorldSource.PlayOneShot(ac);
 
-        // If the hero can play a sound
-        if (this.SoundOn && this.RocketSound.Count > 0 && this.audioListener != null)
-        {
+		}
 
-            AudioClip ac = this.RocketSound[Random.Range(0, this.RocketSound.Count)];
+	}
 
-            this.PlayerSource.clip = ac;
-            this.PlayerSource.loop = true;
+	/// <summary>
+	/// Play one villager scream sound, randomly selected from the list
+	/// </summary>
+	public void PlayVillagerScream()
+	{
 
-            this.PlayerSource.Play();
+		// If the hero can play a sound
+		if (this.SoundOn && this.VillagerScream.Count > 0 && this.audioListener != null)
+		{
 
-        }
+			AudioClip ac = this.VillagerScream[Random.Range(0, this.VillagerScream.Count)];
+			this.VillagerSource.PlayOneShot(ac);
 
-    }
+		}
 
-    public void StopRocketSound() {
-                
-        this.PlayerSource.Stop();
-
-    }
+	}
 
 
     #endregion
@@ -539,63 +528,6 @@ public class SoundManager : MonoBehaviour
         {
 
             AudioClip ac = this.WinGame[Random.Range(0, this.WinGame.Count)];
-            this.JingleSource.clip = ac;
-            this.JingleSource.Play();
-            this.LowerMusicWhileJinglePlay();
-
-        }
-
-    }
-
-    /// <summary>
-    /// Play one Loose game jingle, randomly selected from the list
-    /// </summary>
-    public void PlayLooseGame()
-    {
-
-        // If the hero can play a sound
-        if (this.SoundOn && this.LooseGame.Count > 0 && this.audioListener != null)
-        {
-
-            AudioClip ac = this.LooseGame[Random.Range(0, this.LooseGame.Count)];
-            this.JingleSource.clip = ac;
-            this.JingleSource.Play();
-            this.LowerMusicWhileJinglePlay();
-
-        }
-
-    }
-
-    /// <summary>
-    /// Play one bonus used jingle, randomly selected from the list
-    /// </summary>
-    public void PlayBonusUsed()
-    {
-
-        // If the hero can play a sound
-        if (this.SoundOn && this.BonusUsed.Count > 0 && this.audioListener != null)
-        {
-
-            AudioClip ac = this.BonusUsed[Random.Range(0, this.BonusUsed.Count)];
-            this.JingleSource.clip = ac;
-            this.JingleSource.Play();
-            this.LowerMusicWhileJinglePlay();
-
-        }
-
-    }
-
-    /// <summary>
-    /// Play one buyback jingle, randomly selected from the list
-    /// </summary>
-    public void PlayBuyBack()
-    {
-
-        // If the hero can play a sound
-        if (this.SoundOn && this.BuyBack.Count > 0 && this.audioListener != null)
-        {
-
-            AudioClip ac = this.BuyBack[Random.Range(0, this.BuyBack.Count)];
             this.JingleSource.clip = ac;
             this.JingleSource.Play();
             this.LowerMusicWhileJinglePlay();
